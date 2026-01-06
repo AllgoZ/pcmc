@@ -1,0 +1,180 @@
+/* Reset styles for consistency */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Full-page background styling */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('Assets/quiz bg.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Neon logo container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Neon-style logo */
+.neon-logo {
+    width: 200px;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6)) 
+            drop-shadow(0 0 25px rgba(255, 255, 255, 0.4)) 
+            drop-shadow(0 0 40px rgba(255, 255, 255, 0.3));
+}
+
+/* Quiz box styling */
+.quiz-box {
+    background-color: #00274d; /* Deep navy background */
+    border: 4px solid #00aaff; /* Bright cyan border */
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 0 30px rgba(0, 170, 255, 0.5); /* Neon glow effect */
+}
+
+/* Question text */
+.quiz-box h2 {
+    font-size: 24px;
+    color: #ffffff; /* Bright white text */
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Answer buttons */
+.answer-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap if necessary */
+    justify-content: center;
+    gap: 15px;
+}
+
+.answer-btn {
+    background-color: #002749; /* Deep navy button background */
+    color: #ffffff; /* White text */
+    border: 2px solid #ec1c24; /* Bright red border */
+    border-radius: 10px;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 45%; /* Two buttons per row */
+    text-align: center;
+    line-height: 1.4; /* Better line spacing */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(236, 28, 36, 0.5); /* Subtle button glow */
+}
+
+/* Hover effect for buttons */
+.answer-btn:hover {
+    background-color: #ec1c24; /* Bright red background on hover */
+    color: #ffffff; /* Ensure white text stays visible */
+    transform: scale(1.1); /* Slight zoom effect */
+    box-shadow: 0 0 15px rgba(236, 28, 36, 0.8);
+}
+
+/* Button active state (click effect, temporary) */
+.answer-btn:active {
+    transform: scale(0.95); /* Slight shrink effect */
+}
+
+/* Class to permanently change the button color when clicked */
+.clicked {
+    background-color: #139650; /* Green color */
+    color: #ffffff; /* White text */
+    box-shadow: 0 0 15px rgba(19, 150, 80, 0.8); /* Subtle glow */
+    transform: scale(1); /* Reset scale */
+    pointer-events: none; /* Disable further clicks on the button */
+}
+
+/* Navigation buttons */
+.nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Spacing between text and icon */
+    background-color: #00274d;
+    color: #00aaff;
+    border: 2px solid #00aaff;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+    text-transform: uppercase;
+}
+
+.nav-btn .button-icon {
+    font-size: 18px; /* Slightly larger icons */
+    line-height: 1;
+}
+
+.nav-btn:hover {
+    background-color: #00aaff;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 170, 255, 0.8);
+}
+
+.nav-btn:disabled {
+    background-color: #555;
+    color: #999;
+    border-color: #999;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Add spacing and center alignment */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
+/* Mobile view adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+
+    .neon-logo {
+        width: 150px; /* Reduce logo size */
+    }
+
+    .quiz-box {
+        padding: 20px; /* Reduce padding for smaller screens */
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    .quiz-box h2 {
+        font-size: 20px; /* Adjust font size for question text */
+        margin-bottom: 20px;
+    }
+
+    .answer-buttons {
+        gap: 10px; /* Reduce gap between buttons */
+    }
+
+    .answer-btn {
+        width: 100%; /* Full width for buttons on small screens */
+        padding: 10px; /* Reduce padding for compactness */
+        font-size: 14px; /* Adjust font size */
+    }
+}

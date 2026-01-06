@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HP Lubricants Login</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+  </head>
+  <body>
+    <div class="background">
+      <div class="login-container">
+        <form action="{% url 'index' %}" method="post">
+          {% csrf_token %}
+          <div class="form-row">
+            <label for="user-id">User ID</label>
+            <input type="text" id="user-id" name="user-id" required />
+          </div>
+          <div class="form-row">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+          <div class="form-row">
+            <label for="ro-dropdown">Ro</label>
+            <select id="ro-dropdown" name="ro" required>
+              <option value="" disabled selected>Select Ro Option</option>
+              <option value="Ahe">Ahmedabad</option>
+              <option value="Ban">Bangalore</option>
+              <option value="Bho">Bhopal</option>
+              <option value="Bhu">Bhubaneshwar</option>
+              <option value="Cha">Chandigarh</option>
+              <option value="Che">Chennai</option>
+              <option value="Coc">Cochin</option>
+              <option value="Del">Delhi</option>
+              <option value="Jai">Jaipur</option>
+              <option value="Kol">Kolkata</option>
+              <option value="Luc">Lucknow</option>
+              <option value="Mum">Mumbai</option>
+              <option value="Nag">Nagpur</option>
+              <option value="Pat">Patna</option>
+              <option value="Pun">Pune</option>
+              <option value="Rai">Raipur</option>
+              <option value="Ran">Ranchi</option>
+              <option value="Sec">Secunderabad</option>
+              <option value="Vis">Vishakhapatnam</option>
+            </select>
+          </div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

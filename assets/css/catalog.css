@@ -1,0 +1,441 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.background {
+  background-image: url('Assets/Background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.catalog-container::-webkit-scrollbar {
+  display: none;
+}
+
+.catalog-container {
+  overflow-y: auto;
+  max-height: 70vh;
+  width: 80%;
+  max-width: 900px;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+.next-button {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.next-button button {
+  background-color: #004080;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.next-button button:hover {
+  background-color: #002244;
+  transform: scale(1.05);
+}
+
+.next-button button:focus {
+  outline: none;
+}
+
+.back-button {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.back-button button {
+  background-color: #004080;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-button button:hover {
+  background-color: #002244;
+  transform: scale(1.05);
+}
+
+.back-button button:focus {
+  outline: none;
+}
+
+.catalog {
+  background-color: transparent;
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.section {
+  margin-bottom: 50px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 10px;
+}
+
+.product-item {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 10px 0px 10px;
+}
+
+.product-item img {
+  width: 100px;
+  height: 160px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.product-label {
+  background-color: #002244;
+  color: white;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  text-align: center;
+  width: 100%;
+  height: 20px;
+}
+
+.footer {
+  background-color: #002244;
+  color: white;
+  padding: 10px;
+  font-size: 0.8rem;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+}
+
+.footer-logo {
+  height: 50px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.footer-text {
+  vertical-align: middle;
+}
+
+.product-details-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fdf2d8;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+}
+
+.modal-product-image {
+  width: 100px;
+  height: 150px;
+  margin-bottom: 10px;
+}
+
+.modal-content h2 {
+  color: #004080;
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+.modal-content p {
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.modal-content ul {
+  text-align: left;
+  color: #333;
+  font-size: 0.8rem;
+  list-style-type: disc;
+  margin: 10px 0 15px;
+  padding-left: 20px;
+}
+
+.product-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.product-options label {
+  font-weight: bold;
+  color: #333;
+  margin-top: 10px;
+  align-items: center;
+  text-align: center;
+}
+
+.product-options button {
+  display: flex;
+  flex-direction: row;
+  margin: 0 5px;
+  background-color: #004080;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.product-options span {
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+.modal-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('Images/background-text-pattern.png');
+  opacity: 0.1;
+  z-index: -1;
+  border-radius: 10px;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.logout-btn img {
+  width: 40px;
+  height: auto;
+  cursor: pointer;
+}
+
+/* Modal styling */
+.product-details-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.delivery-options {
+  position: fixed;
+  bottom: 130px;
+  left: 35%;
+  transform: translateX(-50%);
+  display: flex; /* Arrange items in a row */
+  align-items: center; /* Vertically center-align the content */
+  gap: 10px; /* Space between elements */
+  background-color: #004080;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+label {
+  color: white;
+  font-size: 16px; /* Ensure uniform text size */
+}
+
+input[type="radio"] {
+  margin-left: 5px; /* Add a slight space between the radio button and text */
+}
+
+.futurex-options {
+  position: fixed;
+  bottom: 130px;
+  left: 65%;
+  transform: translateX(-50%);
+  display: flex; /* Arrange items in a row */
+  align-items: center; /* Vertically center-align the content */
+  gap: 10px; /* Space between elements */
+  background-color: #004080;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+.modal-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  max-height: 500px; /* Set a max-height for scrolling */
+  overflow-y: auto; /* Add vertical scrollbar when needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  position: relative;
+}
+/* Close button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Product image styling */
+.product-image img {
+  width: 100px;
+  height: 150px;
+  margin-bottom: 15px;
+}
+
+/* Quantity selection buttons */
+.quantity-selection .quantity-option {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.quantity-option label {
+  flex: 1;
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+}
+
+.quantity-option button {
+  background-color: #004080;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 0 5px;
+}
+
+.quantity-option span {
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+/* OK button styling with spacing */
+.confirm-button {
+  background-color: #004080;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.confirm-button:hover {
+  background-color: #002244;
+  transform: scale(1.05);
+}
+
+/* Applications section with left-aligned image */
+.applications img {
+  margin-top: 10px;
+  margin-right: 170px;
+  width: 120px;
+  height: 30px;
+}
+
+.applications p {
+  font-size: 0.9rem;
+  color: #333;
+  text-align: left;
+}
+
+/* Features and benefits section with left-aligned image */
+
+.features-benefits img {
+  margin-right: 170px;
+  width: 160px;
+  height: 30px;
+}
+
+.features-benefits ul {
+  text-align: left;
+  color: #333;
+  font-size: 0.8rem;
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 0;
+}

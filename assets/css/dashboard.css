@@ -1,0 +1,133 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.background {
+  background-image: url('Assets/Background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+}
+
+.dashboard {
+  background-color: transparent;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 60%;
+  max-width: 800px;
+  margin-top: 50px;
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 150px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 70px;
+}
+
+.stats-box {
+  background-color: #002244;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.stats-box h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  text-decoration: underline;
+}
+
+.stats-box p {
+  font-size: 1rem;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.number-box {
+  background-color: #d3d3d3;
+
+  width: 40px;
+  height: 25px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.home-button {
+  background-color: #0044cc;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.home-button:hover {
+  background-color: #0033aa;
+}
+
+.footer {
+  background-color: #002244;
+  color: white;
+  padding: 10px;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo {
+  height: 50px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.footer-text {
+  vertical-align: middle;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.logout-btn img {
+  width: 40px;
+  height: auto;
+  cursor: pointer;
+}

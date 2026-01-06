@@ -1,0 +1,71 @@
+/* thankyou.css */
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.background {
+  background-image: url('Assets/Background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  color: #fff;
+}
+
+.content {
+  margin-top: 200px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: black;
+}
+
+h4 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.home-button {
+  background-color: #001f3f;
+  /* Dark blue color */
+  color: white;
+  padding: 10px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 20px;
+  /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.home-button:hover {
+  background-color: #004080;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.logout-btn img {
+  width: 40px; 
+  height: auto;
+  cursor: pointer;
+}

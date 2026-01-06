@@ -1,0 +1,220 @@
+/* Lecture */
+
+.LectureMenu{
+    width:344px ;
+    height: 100vh;
+ 
+    background-color:#2d2d2d ;
+    padding: 9rem 1rem 1rem 1rem; 
+    color: #fff;
+}
+.LectureMenu span{
+    font-size: 28px;
+}
+.LectureMenuContainer {
+    border: 2px solid #F3076A;
+    border-radius: 0 0px 20px 20px;
+    padding: 2rem;
+    height:  580px;
+    overflow-y: scroll;
+}
+
+.LectureMenu .LMenuButton{
+    border-left: 2px solid #f3076a;
+    padding: 0.5rem;
+    width: 200px;
+    background-color: transparent;
+    color: #fff;
+    font-size: 24px;
+}
+.LectureMenu .LMenuButton:hover{
+    border-left: 2px solid #f3076a;
+    padding: 0.5rem;
+    width: 200px;
+    background-color:#f3076a
+}
+.LectureMenu .LMenuButton:active{
+    border-left: 2px solid #f3076a;
+    padding: 0.5rem;
+    width: 200px;
+    background-color:#F3076A  ;
+}
+.LectureMenu .LMenuButton:focus{
+    border-left: 2px solid #f3076a;
+    padding: 0.5rem;
+    width: 200px;
+    background-color:#F3076A;
+}
+.LectureMenu .LMenuButton .Lock{
+  width: 22px;
+}
+.LectureMenu .LMenuButton button{
+   border: none;
+   background-color: transparent;
+   color: #fff;
+   font-size: 24px;
+}
+.LectureContentTwo{
+    width: 100%;
+    height: 255px;
+    overflow-y: scroll;
+    background-color:#2d2d2d ;
+    border-top:5px solid #E91E63 ;
+    padding: 2rem;
+    font-size: 24px;
+    color: #f8f8f8;
+    margin-top: 1rem;
+}
+
+.LectureVideo iframe{
+    width: 100%;
+    height: 550px;
+    background-color:#2d2d2d ;
+}
+.LectureVideo {
+    width: 100%;
+    height: 550px;
+    background-color:#2d2d2d ;
+}
+.video-text-box {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    max-width: 100%;
+    margin-bottom: 10px; /* Space between the text box and the video */
+}
+.LectureContent{
+   height: 850px;
+   overflow-y: hidden;
+}
+.contentone{
+    height: 100vh;
+    width:100%;
+    overflow-y: scroll;
+    padding: 8rem 1rem 1rem 1rem;
+}
+
+/* course */
+.course{
+    position: relative;
+}
+.PaymentContainer{
+    display: none;
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+      background: rgb(0,0,0,0.3);
+      z-index: 100000;
+}
+.PayContentBox{
+    height: 100vh;
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+ .paysvg{
+    width: 636px;
+    height: 328px;
+    position: relative;
+}
+.payClose{
+    width: 650px;
+    display:flex;
+    justify-content: end;
+    align-items: end;
+    position: absolute;
+    margin-top: -25px;
+}
+
+/* Volunteer */
+.Volunteer{
+    position: relative;
+}
+
+.VolunteerContainer .volunteerImg{
+    width: 50%;
+
+  
+}
+.VolunteerContainer .volunteerImg img{
+  width: 100%;
+  height: 100vh;
+ 
+}
+.VolunteerContainer .volunteerForm{
+    padding: 8rem 1rem 1rem 1rem; 
+    width: 50%;
+    height: 100%;
+ 
+    
+}
+.VolunteerContainer .volunteerForm h1{
+    font-size: 48px;
+    font-weight: 500;
+    color: #2d2d2d;
+}
+.VolunteerContainer .volunteerForm .line{
+    border-bottom: 1px solid rgb(45, 45, 45,0.2);
+    width: 700px;
+}
+.VolunteerContainer .volunteerForm span{
+    font-size: 20px;
+    font-weight: 500;
+    color: #2d2d2d;
+    text-wrap: nowrap;
+}
+.VolunteerContainer .volunteerForm .volunteerFormContainer{
+    width: 70%;
+}
+.VolunteerContainer .volunteerForm span{
+    width: 45%;
+}
+.VolunteerContainer .volunteerForm input{
+    width: 55%;
+    background-color: #DADADF;
+    height: 40px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+}
+.VolunteerContainer button{
+    width: 140px;
+    height: 40px;
+    background-color: #e91e63;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 10px;
+}
+.Volunteer .valContainer{
+    display: none ;
+    position:fixed;
+    height: 100vh;
+  width: 100%;
+    background: rgb(0,0,0,0.3);
+    z-index: 1000;
+}
+.Volunteer .valContentBox{
+    height: 100vh;
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;  
+}
+.Volunteer .valBox{
+    width: 636px;
+    height: 328px;
+    position: relative;
+}
+.CloseVal{
+    width: 650px;
+    display:flex;
+    justify-content: end;
+    align-items: end;
+    position: absolute;
+    margin-top: -25px;
+}

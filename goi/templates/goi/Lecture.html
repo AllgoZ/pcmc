@@ -1,0 +1,282 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture</title>
+    <link rel="stylesheet" href=" {% static 'Assets/index.css' %} " />
+    <link rel="stylesheet" href=" {% static 'Assets/home.css' %} " />
+    {% comment %} <link rel="stylesheet" href=" {% static 'Assets/Lecture.css' %}" /> {% endcomment %}
+    <style>
+        /* Main styles */
+        .LectureMenu {
+            width: 344px;
+            height: 100vh;
+            background-color: #2d2d2d;
+            padding: 9rem 1rem 1rem 1rem;
+            color: #fff;
+        }
+
+        .LectureMenu span {
+            font-size: 28px;
+        }
+
+        .LectureMenuContainer {
+            border: 2px solid #F3076A;
+            border-radius: 0 0px 20px 20px;
+            padding: 2rem;
+            height: 580px;
+            overflow-y: scroll;
+        }
+
+        .LectureMenu .LMenuButton {
+            border-left: 2px solid #f3076a;
+            padding: 0.5rem;
+            width: 200px;
+            background-color: transparent;
+            color: #fff;
+            font-size: 24px;
+        }
+
+        .LectureMenu .LMenuButton:hover {
+            background-color: #f3076a;
+        }
+
+        .LectureContentTwo {
+            width: 100%;
+            height: 255px;
+            overflow-y: scroll;
+            background-color: #2d2d2d;
+            border-top: 5px solid #E91E63;
+            padding: 2rem;
+            font-size: 24px;
+            color: #f8f8f8;
+            margin-top: 1rem;
+        }
+
+        .LectureVideo iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        .LectureVideo {
+            width: 100%;
+            height: 550px;
+            background-color: #2d2d2d;
+        }
+
+        /* Text box above the video */
+        .video-text-box {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: bold;
+            max-width: 100%;
+            margin-bottom: 10px; /* Space between the text box and the video */
+        }
+
+        .contentone {
+            height: 100vh;
+            overflow-y: scroll;
+            padding: 8rem 1rem 1rem 1rem;
+        }
+
+        /* Style for Lecture content */
+        .LectureContent {
+            height: 850px;
+            overflow-y: hidden;
+        }
+
+        .LectureContent .flex {
+            display: flex;
+        }
+
+        /* Additional styles for buttons and layout */
+        .headbotton {
+            background: transparent;
+            color: #fff;
+            font-size: 16px;
+            padding: 8px;
+        }
+
+        /* Video content container */
+        .LectureContainer {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+        }
+
+        .contentone {
+            width: 100%;
+        }
+
+        .scroll-text {
+            display: inline-block;
+            white-space: nowrap;
+            transition: transform 0s;
+        }
+
+        .scroll-text-container {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+        footer {
+            padding: 10px 0; /* Reduced padding for top and bottom */
+            text-align: center;
+        }
+        .footerLine {
+            width: 100%;
+            height: 2px;
+            background-color: #ccc;
+            margin: 10px 0; /* Small vertical spacing for the divider */
+        }
+        .footer-images {
+            display: flex; /* Use Flexbox for horizontal alignment */
+            align-items: center; /* Align items vertically */
+            justify-content: center; /* Center all items horizontally */
+            gap: 270px; /* Space between elements (text and images) */
+        }
+        .footer-images img {
+            max-height: 80px; /* Limit the height of images */
+            width: auto; /* Maintain aspect ratio */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .fon {
+            
+            margin: 0; /* No extra margins */
+            text-align: left; /* Align text to the left by default */
+            position: relative; /* Allow custom positioning */
+            left: 59px; /* Move text to the right by 10px */
+        }
+        .mai {
+            font-size: 30px;
+            margin: 0; /* No extra margins */
+            text-align: left; /* Align text to the left by default */
+            position: relative; /* Allow custom positioning */
+            
+        }
+        .fontsiz {
+            font-size: 20px; /* Text size */
+            margin: 0; /* No extra margins */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="Lecture">
+        <header class="LectureHeader flex px-2 py-2 middle center">
+            <div class="Logo">
+                <img src={% static 'Assets/headerLogo.svg' %} alt="Logo" />
+                
+            </div>
+            <div class="flex-1"></div>
+            <div class="Menu flex row gap-2">
+                <button class="headbotton" onclick="AboutUs()">About Us</button>
+                <button class="headbotton" onclick="LectureSupport()">Lecture Support</button>
+                <button class="headbotton" onclick="Courses()">Courses</button>
+                <button class="headbotton" onclick="Volunteer()">Volunteer a Lecture</button>
+                <button class="headbotton" onclick="Updates()">Updates in Eyecare</button>
+            </div>
+        </header>
+
+        <div class="LectureContainer flex row">
+            <!-- Lecture Menu -->
+            <div class="LectureMenu col flex gap-6 middle center">
+                <span>Ocular Anatomy and Physiology</span>
+                <div class="LectureMenuContainer flex col gap-4">
+                    {% for lecture in lectures %}
+                        <button class="LMenuButton flex row gap-2" onclick="changeContent('content{{ forloop.counter }}')">
+                            <div class="scroll-text-container">
+                                <div class="scroll-text">
+                            <div>{{ lecture.title }}</div>
+                        </div>
+                    </div>
+                        </button>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Lecture Content -->
+            <div class="contentone">
+                <div class="LectureContent flex col gap-6" id="content">
+                    {% for lecture in lectures %}
+                        <div class="flex col" id="content{{ forloop.counter }}" style="display: {% if forloop.first %}block{% else %}none{% endif %};">
+                            <!-- Text box above the video -->
+                                                  <div class="video-text-box">This lecture content has been contributed by Professor Connie Chronister, a full Professor at Pennsylvania College of Optometry of Salus University (USA). </div>
+                            <!-- Video -->
+                            <div class="LectureVideo">
+                                {% if lecture.lecture_url %}
+                                    <iframe src="{{ lecture.lecture_url }}" frameborder="0" allowfullscreen></iframe>
+                                {% else %}
+                                    <p>No video available for this lecture.</p>
+                                {% endif %}
+                            </div>
+                            <div class="LectureContentTwo flex col gap-4">
+                                <span>{{ lecture.title }}</span>
+                                <p>{{ lecture.additional_info|safe }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="flex col gap-6 middle center">
+
+        
+        <div class="footerLine"></div>
+        
+        <div class="footer-images">
+            <img src="{% static 'Assets/nationv.jpeg' %}" alt="Logo" />
+            <span class="fon">Founding Funders</span>
+            
+            <img src="{% static 'Assets/nationv1.jpeg' %}" alt="Logo" />
+        </div>
+        <h6 class="fontsiz">© All right reserved.</h6>
+
+    </footer>
+    
+    <script>
+        function changeContent(contentId) {
+            var contentElements = document.querySelectorAll('#content > div');
+            contentElements.forEach(function(element) {
+                element.style.display = 'none';
+            });
+            var selectedContent = document.getElementById(contentId);
+            if (selectedContent) {
+                selectedContent.style.display = 'block';
+            }
+        }
+
+        function AboutUs() {
+            window.location.href = '/'; // URL specific to the "goi" index page
+        }
+    
+        function LectureSupport() {
+            window.location.href = '/lecture/'; // URL specific to the "goi" lecture page
+        }
+    
+        function Courses() {
+            window.location.href = '/course/'; // URL specific to the "goi" courses page
+        }
+    
+        function Volunteer() {
+            window.location.href = '/volunteer/'; // URL specific to the "goi" volunteer page
+        }
+    
+        function Updates() {
+            window.location.href = '/update/'; // URL specific to the "goi" updates page
+        }
+    
+        function UpdatesPage() {
+            window.location.href = '/updatepage/'; // URL specific to the "goi" update page
+        }
+    </script>
+</body>
+</html>

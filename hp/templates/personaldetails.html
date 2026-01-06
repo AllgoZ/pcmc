@@ -1,0 +1,293 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Detail Form</title>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-image: url(" {% static 'css/Assets/Background.png' %} ");
+        background-size: cover;
+        background-attachment: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; /* Stack header and form vertically */
+        height: 100vh;
+        overflow: hidden;
+    }
+    
+    .header {
+        background-color: rgba(0, 32, 64, 0.9);
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        color: white;
+    }
+    
+    .header h1 {
+        margin: 0;
+        font-size: 1.8rem;
+    }
+    
+    .form-container {
+        background-color: rgba(0, 32, 64, 0.9);
+        width: 800px;
+        max-width: 800px;
+        border-radius: 10px;
+        padding: 20px;
+        color: white;
+        overflow-y: auto;
+        max-height: 60vh; /* Adjust height for the scrolling area */
+    }
+    
+    
+    .form-container h1 {
+        position: sticky;
+        top: 0;
+        background-color: rgba(0, 32, 64, 0.9);
+        z-index: 1;
+        padding: 10px 0;
+        margin: 0 0 10px; /* Add spacing below the header */
+        text-align: center;
+        font-size: 1.8rem;
+    }
+    
+      
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            flex-basis: 50%;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            margin-right: 10px;
+        }
+
+        .form-group select, .form-group input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            box-sizing: border-box;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .checkbox-group label {
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .next-button, .back-button {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .next-button {
+            right: 20px;
+        }
+
+        .back-button {
+            left: 20px;
+        }
+
+        .next-button button, .back-button button {
+            background-color: #004080;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .next-button button:hover, .back-button button:hover {
+            background-color: #002244;
+            transform: scale(1.05);
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .logout-btn img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="logout-btn">
+      <a href=" {% url 'index' %} "><img src=" {% static 'css/Assets/logout.png' %} " /></a>
+    </div>
+    <div class="header">
+      <h1>Personal Detail</h1>
+  </div>
+    <div class="form-container">
+      
+      <form method="post" action="{% url 'personaldetails' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="districtName">District Name:</label>
+          <select name="district" id="cars">
+            {% for district in districts %}
+            <option value="{{ district.district }}">{{ district.district }}</option>
+        {% endfor %}
+          </select>
+          
+        </div>
+        <div class="form-group">
+          <label for="otherDistrict">Others:</label>
+          <input type="text" id="otherDistrict" name="otherDistrict" />
+        </div>
+        <div class="form-group">
+          <label for="townName">Town Name:</label>
+          <select name="town" id="cars">
+            {% for town in towns %}
+                <option value="{{ town.town }}">{{ town.town }}</option>
+            {% endfor %}
+        </select>
+        </div>
+        <div class="form-group">
+          <label for="otherTown">Others:</label>
+          <input type="text" id="otherTown" name="otherTown" />
+        </div>
+        <div class="form-group">
+          <label for="outletName">Retail Outlet Name:</label>
+          <input type="text" id="outletName" name="outletName" />
+        </div>
+        <div class="form-group">
+          <label for="ownerName">Owner Name:</label>
+          <input type="text" id="ownerName" name="ownerName" />
+        </div>
+        <div class="form-group">
+          <label for="contactNumber">Contact Number:</label>
+          <input type="text" id="contactNumber" name="contactNumber" />
+        </div>
+        <div class="form-group">
+          <label for="Address">Address:</label>
+          <input type="text" id="Address" name="Address" />
+      </div>
+        <!-- Checkbox Groups for multiple options -->
+        <div class="form-group">
+          <label>Pragati App Enrolled:</label>
+          <div class="checkbox-group">
+            <label
+              ><input type="checkbox" name="hungamaApp" value="Yes" />
+              Yes</label
+            >
+            <label
+              ><input type="checkbox" name="hungamaApp" value="No" /> No</label
+            >
+            <label
+            ><input type="checkbox" name="address" value="Already Enrolled" />
+            Already Enrolled</label
+          >
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Existing HPCL Customer:</label>
+          <div class="checkbox-group">
+            <label
+              ><input type="checkbox" name="hpclCustomer" value="Yes" />
+              Yes</label
+            >
+            <label
+              ><input type="checkbox" name="hpclCustomer" value="No" />
+              No</label
+            >
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <label>Branding - Flanges installed:</label>
+          <div class="checkbox-group">
+            <label
+              ><input type="checkbox" name="flanges" value="Yes" /> Yes</label
+            >
+            <label
+              ><input type="checkbox" name="flanges" value="No" /> No</label
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Branding - Danglers installed:</label>
+          <div class="checkbox-group">
+            <label
+              ><input type="checkbox" name="danglers" value="Yes" /> Yes</label
+            >
+            <label
+              ><input type="checkbox" name="danglers" value="No" /> No</label
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mostSoldLube">Most Sold Lube in Outlet:</label>
+          <input type="text" id="mostSoldLube" name="mostSoldLube" />
+        </div>
+        <div class="form-group">
+          <label>Application of Lube:</label>
+          <div class="checkbox-group">
+            <label
+              ><input
+                type="checkbox"
+                name="applicationLube"
+                value="2 Wheeler"
+              />
+              2 Wheeler</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="applicationLube"
+                value="4 Wheeler"
+              />
+              4 Wheeler</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="applicationLube"
+                value="Heavy Vehicle"
+              />
+              Heavy Vehicle</label
+            >
+          </div>
+        </div>
+        <div class="next-button">
+            <button type="submit" onclick="window.location.href=' {% url 'catalog' %} '">Next</button>
+    </div>
+  </form>
+    <div class="back-button">
+      <button onclick="window.location.href=' {% url 'selection' %} ';">Back</button>
+    </div>
+  </body>
+</html>

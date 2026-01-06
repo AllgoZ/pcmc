@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href=" {% static 'css/thankyou.css' %} " />
+    <title>Thank You!</title>
+  </head>
+  <body>
+    <div class="background">
+      <div class="logout-btn">
+        <a href=" {% url 'selection' %} "><img src=" {% static 'css/Assets/logout.png' %} " /></a>
+      </div>
+      <div class="content">
+        <center>
+          <h1>Thank you!</h1>
+          <h4>Your Order has been placed</h4>
+          <button
+            class="home-button"
+            onclick="window.location.href = {% url 'selection' %} 
+          >
+            Home
+          </button>
+        </center>
+      </div>
+    </div>
+  </body>
+</html>

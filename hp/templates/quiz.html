@@ -1,0 +1,188 @@
+{% load static %}
+{% static "css/Assets" as baseUrl %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HPCL Quiz</title>
+    <link rel="stylesheet" href=" {% static 'css/quiz.css' %} ">
+</head>
+<body>
+    <div class="container">
+        <!-- HP Lubricants Logo -->
+        <img src=" {% static 'css/Assets/quiz logo.png' %}" alt="HP Lubricants Logo" class="neon-logo">
+    </div>
+
+    <!-- Quiz Section -->
+    <!-- Quiz Section -->
+    <div class="quiz-box">
+        <h2 id="question-text">Which of these is incorrect about HPCL?</h2>
+        <div class="answer-buttons">
+            <button class="answer-btn" id="option1"></button>
+            <button class="answer-btn" id="option2"></button>
+            <button class="answer-btn" id="option3"></button>
+            <button class="answer-btn" id="option4"></button>
+        </div>
+        <div id="feedback" class="feedback-message"></div> <!-- Feedback message here -->
+        <div class="navigation">
+            <button id="prev-btn" class="nav-btn" disabled>
+                <span class="button-icon">&#8592;</span> <!-- Left arrow -->
+                <span class="button-text">Previous</span>
+            </button>
+            <button id="next-btn" class="nav-btn">
+                <span class="button-text">Next</span>
+                <span class="button-icon">&#8594;</span> <!-- Right arrow -->
+            </button>
+            <button id="submit-btn" class="nav-btn" style="display: none;">Submit</button> <!-- Submit button (hidden by default) -->
+        </div>        
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const questions = [
+            {
+                question: "Which of these is incorrect about HPCL?",
+                options: [
+                    "Maharatna Company",
+                    "India’s largest Lube manufacturer",
+                    "HP Lubes offers high quality Lubes with affordable prices",
+                    "All above are correct",
+                ],
+                correct: 3, // Correct answer is option 3
+            },
+            {
+                question: "Which of these are HP Lubes product categories?",
+                options: [
+                    "HP Milcy",
+                    "HP Neosynth",
+                    "HP Racer",
+                    "All above are correct",
+                ],
+                correct: 3, // Correct answer is option 3
+            },
+            {
+                question: "Which of these vehicle categories are serviced by HP Lubes?",
+                options: [
+                    "2 Wheelers",
+                    "4 Wheelers",
+                    "Heavy Vehicles",
+                    "All above are correct",
+                ],
+                correct: 3, // Correct answer is option 3
+            },
+            {
+                question: "Which of these are correct about HP Lube FUTUR-X?",
+                options: [
+                    "FUTUR-X belong to HP Lubes",
+                    "It’s a range of Ultra-Premium Automotive Oils",
+                    "Futur-X Racer, Neosynth & Milcy takes care of 2W, 4W and HV Lube need respectively",
+                    "All above are correct",
+                ],
+                correct: 3, // Correct answer is option 3
+            },
+            {
+                question: "Which of these are correct about HP Lube?",
+                options: [
+                    "One of the most trusted & appreciated Lube brand",
+                    "High product acceptability & great distribution network",
+                    "High end Technological driven products with great performance", 
+                    "All above are correct",
+                ],
+                correct: 3, // Correct answer is option 3
+            },
+            {
+                question: "While buying Lubes, which of these a retail must consider?",
+                options: [
+                    "High performing quality products",
+                    "Easy availability with strong supply flow",
+                    "Competitive pricing and brand goodwill", 
+                    "All above are correct",
+                ],
+                correct: 3, // Correct answer is option 3
+            },
+            {
+                question: "Please select one",
+                options: [
+                    "I want HP Product branding also",
+                    "I am ordering right now",
+                    "Both a & b", 
+                    "None of above",
+                ],
+                // No correct answer here, so we don't need the 'correct' field.
+            },
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0; // Keep track of the score
+        const questionText = document.getElementById("question-text");
+        const buttons = document.querySelectorAll(".answer-btn");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+        const submitBtn = document.getElementById("submit-btn");
+        const feedback = document.getElementById("feedback"); // Feedback message container
+
+        const loadQuestion = (index) => {
+            const question = questions[index];
+            questionText.textContent = question.question;
+            feedback.textContent = ''; // Clear previous feedback message
+
+            buttons.forEach((button, i) => {
+                button.textContent = question.options[i];
+                button.classList.remove("clicked");
+                button.onclick = () => {
+                    buttons.forEach((btn) => btn.classList.remove("clicked"));
+                    button.classList.add("clicked");
+
+                    // Only check if there's a correct answer (not null)
+                    if (question.correct !== undefined) {
+                        if (i === question.correct) {
+                            feedback.textContent = "Correct!";
+                            feedback.style.color = "green"; // Set feedback color to green
+                            score++; // Increase score on correct answer
+                        } else {
+                            feedback.textContent = "Incorrect, try again!";
+                            feedback.style.color = "red"; // Set feedback color to red
+                        }
+                    }
+
+                    // If it's the last question, show the Submit button
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.style.display = "none"; // Hide the "Next" button
+                submitBtn.style.display = "inline-block"; // Show the "Submit" button
+            } else {
+                nextBtn.style.display = "inline-block"; // Ensure "Next" is visible for manual navigation
+                submitBtn.style.display = "none"; // Hide the "Submit" button
+            }
+        };
+            });
+
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === questions.length - 1;
+        };
+
+        prevBtn.addEventListener("click", () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion(currentQuestionIndex);
+            }
+        });
+
+        nextBtn.addEventListener("click", () => {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion(currentQuestionIndex);
+            }
+        });
+
+        submitBtn.addEventListener("click", () => {
+            // Show final score on submit
+            alert(`You have completed the quiz!\nYour score is ${score} out of ${questions.length}`);
+            // Optionally, reset quiz or redirect user here
+        });
+
+        loadQuestion(currentQuestionIndex);
+    });
+    </script>
+</body>
+</html>

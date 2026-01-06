@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href=" {% static 'css/dashboard.css' %} " />
+  </head>
+  <body>
+    <div class="background">
+      <div class="logout-btn">
+        <a href=" {% url 'index' %} "><img src=" {% static 'css/Assets/logout.png' %} " /></a>
+      </div>
+      <div class="dashboard">
+        <div class="header">DASHBOARD</div>
+        <div class="stats">
+          <div class="stats-box">
+            <h3>Till Date</h3>
+            <p>Activity Days: <span class="number-box"></span></p>
+            <p>Outlets Visited: <span class="number-box"></span></p>
+            <p>Productive Outlets: <span class="number-box"></span></p>
+          </div>
+          <div class="stats-box">
+            <h3>Today</h3>
+            <p>Outlets Visited: <span class="number-box"></span></p>
+            <p>Productive Outlets: <span class="number-box"></span></p>
+          </div>
+        </div>
+        <div class="button-container">
+          <button
+            class="home-button"
+            onclick="window.location.href=' {% url 'selection' %} ';"
+          >
+            Home
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

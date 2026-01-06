@@ -1,0 +1,541 @@
+{% load static %}
+{% static "Assets" as baseUrl %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>tepros.in</title>
+    <link rel="icon" type="image/x-icon" href=" {% static './Assets/favicon.ico' %} ">
+    <link rel="stylesheet" href=" {% static 'styles.css' %} ">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{% static 'script.js' %}"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <script src="script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Selection</title>
+    <style>
+        /* Add your styling here */
+        /* #menu {
+            float: left;
+            width: 20%;
+            }
+        
+            #content {
+            float: left;
+            width: 80%;
+            } */
+
+        /* .side-subject {
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        } */
+    </style>
+
+</head>
+
+<body style="background-color: #F77F00;height:100vh;display: flex;flex-direction: column;">
+
+    <div class='body-Container h-full '>
+        <div class='AppSubject flex col  '>
+
+            <div class='subject_component flex px-4 py-2 '>
+                <div class=''>
+                    <a class="responsive-img flex middle" href=" {% url 'home' %} ">
+                        <img src=" {% static './Assets//Tepros.png' %} " alt='Tepros'>
+                    </a>
+                </div>
+                <div class="flex-1"></div>
+                <div class="responsive-pcmcimg  flex middle center">
+                    <img src=" {% static './Assets/pcmc logo.png' %} " alt="pcmc" />
+                </div>
+                <div class="flex-1"></div>
+                <div class="responsive-book row llg-gap-2 p-2  llg-flex" style="width: auto;">
+                    <a href=" {% url 'subject' %} "><img src=" {% static './Assets/Home.png' %} " alt=""
+                            style="width:28px;height:28px;" class="opasity"></a>
+                    <a href=" {% url 'home' %} "><img src=" {% static './Assets/Loglot.png' %} " alt=""
+                            style="width:28px;height:28px;" class="opasity"></a>
+                </div>
+                <div class="responsive-menu  llg-hide flex middle center" id="menuBtn">
+                    <button style="background: none;border: none;">
+                        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_775_3057)">
+                                <path d="M4 24H28V21.3333H4V24ZM4 17.3333H28V14.6667H4V17.3333ZM4 8V10.6667H28V8H4Z"
+                                    fill="white" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_775_3057">
+                                    <rect width="32" height="32" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </button>
+
+
+                </div>
+            </div>
+            <div class="flex col  relative w-full">
+                <div class="responsive-subject flex middle center col gap-6" style="height: auto;">
+                    <div class="responsive-book row   llg-flex ">
+                        <div class="math-subjects" id="menu">
+                            <div class="yellow-back flex col gap-1 middle center ">
+                                <div class="font-size font-familys flex middle center" style="height: 31px;">
+                                    Standard-{{scis.content_instances.0.section}}</div>
+                                <div class="lines" style="border-top: 1px solid #003049; width: 209px;"></div>
+                                <div class="font-size font-familys flex middle center" style="height: 31px;">Subject -
+                                    Science</div>
+                            </div>
+
+                            <!-- Menu items -->
+                            <div class="inside-gap">
+                                {%for sci in scis.content_instances %}
+                                <div class="menu-item font-size font-familys"
+                                    onclick="changeContent('content{{sci.Topic_order}}')">
+                                    {{sci.Topic_order}}.{{sci.science_topic}}</div>
+                                {% endfor%}
+                            </div>
+                        </div>
+
+
+
+                        <!-- Content area -->
+                        <div class="right-content" id="content" style="overflow: hidden; width: 872px; height:507px">
+                            <!-- Content area -->
+                            {%for sci in scis.content_instances %}
+                            {%if sci.Topic_enable == True%}
+                            <div id="content{{sci.Topic_order}}">
+                                <div class="book">
+
+                                    <div class="imgCon flex">
+                                        <!-- Left Page -->
+                                        <div class="notes flex col gap-1"
+                                            style="display: flex; flex-direction: column; justify-content: space-between;">
+                                            <div class="flex col gap-4">
+                                                <span>{{sci.science_topic}}</span>
+                                                <p>{{sci.text_content}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex-1"></div>
+
+                                        <!-- Right Page content (Thumbnail was here) -->
+                                        <div class="Thumbnail flex center middle">
+                                            <div class=""></div>
+                                            <div class="playButton">
+                                                <div class="playCon">
+                                                    <a href="#">
+                                                        <img src="{% static './Assets/Buttom.svg' %}" alt="play"
+                                                            onclick="openVideoModal('https://www.youtube-nocookie.com/embed/{{sci.science_link}}?rel=0', '{{sci.science_topic}}')" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <img src="{{sci.img.url}}" class="tvImg" />
+                                            <img src="{% static './Assets/Tv.png' %}" class="television" />
+                                        </div>
+
+                                        <!-- Q/A Link: Absolute Positioned on Left Page (Right side) -->
+                                        {% if sci.new_topic and sci.study_material %}
+                                        <div style="position: absolute; bottom: 30px; left: 340px;">
+                                            <a href="{{ sci.study_material.pdf_file.url }}" target="_blank"
+                                                style="color: #000; font-weight: bold; text-decoration: none; display: flex; align-items: center;"
+                                                title="Q/A PDF">
+                                                <i class="fa fa-file-pdf-o"
+                                                    style="font-size:24px;color:red; margin-right: 8px;"></i>
+                                                <span style="font-size: 16px;">Q/A</span>
+                                            </a>
+                                        </div>
+                                        {% endif %}
+
+                                        <!-- Assessment Link: Absolute Positioned on Right Page -->
+                                        {% if sci.new_topic %}
+                                        <div style="position: absolute; bottom: 30px; right: 80px;">
+                                            <a href="{% url 'assessment_topic' sci.new_topic.id %}"
+                                                style="color: #000; font-weight: bold; text-decoration: none; display: flex; align-items: center;"
+                                                title="Take Assessment">
+                                                <i class="fa fa-pencil-square-o"
+                                                    style="font-size:24px;color:blue; margin-right: 8px;"></i>
+                                                <span style="font-size: 16px;">Take Assessment</span>
+                                            </a>
+                                        </div>
+                                        {% endif %}
+
+                                    </div>
+
+                                    <a href="{{sci.science_link}}">
+                                        <img src=" {% static './Assets/Book.png' %} " alt="" class="video-contentsize">
+                                    </a>
+
+                                    <div class="row" style="display:none;">
+                                        <!-- Assessment Link Positioned near bottom right -->
+                                        {% if sci.new_topic %}
+                                        <a href="{% url 'assessment_topic' sci.new_topic.id %}"
+                                            style="color: #000; font-weight: bold; text-decoration: none; display: flex; align-items: center;"
+                                            title="Take Assessment">
+                                            <i class="fa fa-pencil-square-o"
+                                                style="font-size:24px;color:blue; margin-right: 8px;"></i>
+                                            <span style="font-size: 16px;">Take Assessment</span>
+                                        </a>
+                                        {% endif %}
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            {%endif%}
+                            {% endfor%}
+
+                        </div>
+
+
+                    </div>
+                    <div class="responsive-book llg-flex">
+                        <!-- <span class="powered-by">Powered by Tepros</span>  -->
+                        <img src="{% static './Assets/powered by.png' %}" alt="" width="50%" class="powered">
+                    </div>
+                </div>
+                <div class="">
+                    <div class="hide" id="main">
+                        <div class="responsive-mathsubject w-full flex flex right llg-hide">
+                            <div class="responsive-mathbox flex col p-2">
+                                <div class="responsive-mathList flex col p-2" id="menu">
+                                    {%for sci in scis.content_instances %}
+                                    <div class="menu-item font-sizeRes "
+                                        onclick="changeResContent('contentRes{{sci.Topic_order}}')">
+                                        {{sci.Topic_order}}.{{sci.science_topic}}</div>
+                                    <div style="padding-right: 2rem;" class="hr_list">
+                                        <hr />
+                                    </div>
+                                    {% endfor%}
+                                </div>
+                                <div class="flex-1"></div>
+
+                                <div class="flex right ">
+                                    <div class=" flex row gap-2 p-2" style="width: auto;">
+                                        <a href=" {% url 'subject' %} "><img src=" {% static './Assets/Home.png' %} "
+                                                alt="" style="width:28px;height:28px;" class="opasity"></a>
+                                        <a href=" {% url 'home' %} "><img src=" {% static './Assets/Loglot.png' %} "
+                                                alt="" style="width:28px;height:28px;" class="opasity"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex sm-flex llg-hide col  p-2 sm-p-4 ">
+                        <div class="responsive-contant flex sm-flex llg-hide middle center p-2">
+                            <span>Standard {{scis.content_instances.0.section}} Science</span>
+                        </div>
+
+                        <div>
+
+
+                            <div class="main-swiper" id="main-swiper">
+                                <div class="items flex row gap-2" id="items">
+                                    <div class="items flex row gap-2 py-2 middle" id="contentRes">
+                                        {%for sci in scis.content_instances %}
+                                        {%if sci.Topic_enable == True%}
+                                        <div class="responsive-contant responsive-box item flex col gap-4 p-2"
+                                            id="contentRes{{sci.Topic_order}}">
+                                            <div id="item">
+                                                <div class=" flex col gap-2 ">
+
+                                                    <div> <a class="responsive-playbutton" href="#"
+                                                            onclick="openVideoModal('https://www.youtube-nocookie.com/embed/{{sci.science_link}}?rel=0', '{{sci.science_topic}}')">
+                                                            <div class="responsive-dim"></div>
+                                                            <img src="{% static './Assets/Buttom.svg' %}"
+                                                                class="responsive-playButton-img" alt="play" />
+                                                            <img src="{{sci.img.url}}" alt="" class="shadow-filters"
+                                                                draggable="false">
+                                                        </a></div>
+
+
+                                                </div>
+
+                                                <div class="col gap-2 py-2 flex">
+                                                    <div class="flex col">
+                                                        <span
+                                                            class="px-2">{{sci.Topic_order}}.{{sci.science_topic}}</span>
+                                                        <svg width="297px" height="11" viewBox="0 0 297 11" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <!-- SVG paths same -->
+                                                            <path
+                                                                d="M4.63368 5.26267L41.1828 5.06535L77.723 4.98463L150.821 4.8501L223.911 4.99361L260.46 5.07433L297 5.28958L260.46 5.50485L223.911 5.58557L150.821 5.73803L77.723 5.59452L41.1828 5.52278L4.63368 5.31648V5.26267Z"
+                                                                fill="#003049" />
+                                                            <path
+                                                                d="M0.00531801 7.3794C0.00531801 7.98033 0.489642 8.46465 1.09057 8.46465C1.33274 8.46465 1.55697 8.38394 1.73635 8.2494L4.36432 5.62143C4.41814 5.68422 4.48987 5.72907 4.57059 5.74701L3.69164 9.05662L3.61987 9.32568C3.56606 9.74723 3.76338 10.1778 4.15802 10.402C4.67823 10.7069 5.34194 10.5275 5.63792 10.0073C5.75452 9.80105 5.79937 9.58579 5.78143 9.36156V9.35259L5.69173 9.02073L5.68278 9.0028L5.6738 8.98485L5.66483 8.96692L4.81278 5.74701C4.8935 5.72907 4.97421 5.68422 5.02803 5.62143L7.64702 8.24042C7.69187 8.26733 7.72773 8.29424 7.77257 8.32114C8.29278 8.61712 8.95649 8.43776 9.25247 7.91755C9.54845 7.39734 9.37804 6.7336 8.85783 6.43762C8.81298 6.41072 8.76814 6.3928 8.7233 6.37486H8.71432L8.41835 6.29412H8.39144L8.37352 6.28516L5.15361 5.41516C5.16258 5.37031 5.17154 5.33442 5.17154 5.28958C5.17154 5.24473 5.16258 5.20887 5.15361 5.16403L8.45423 4.28504L8.7233 4.2133C8.76814 4.19536 8.81298 4.17742 8.85783 4.15051C9.37804 3.84556 9.54845 3.18184 9.25247 2.66163C8.95649 2.14143 8.29278 1.96204 7.77257 2.26699C7.72773 2.2939 7.69187 2.3208 7.64702 2.34771L7.53937 2.44639L5.02803 4.95773C4.97421 4.89494 4.90245 4.85011 4.82173 4.83217L5.70071 1.5405L5.78143 1.26246V1.24453C5.7904 1.20865 5.79041 1.16379 5.79041 1.11895C5.79041 0.518016 5.2971 0.0336914 4.69617 0.0336914C4.10421 0.0336914 3.61092 0.518016 3.61092 1.11895C3.61092 1.17276 3.6109 1.21761 3.61987 1.26246V1.28038L3.62885 1.29834L3.68266 1.48668L3.70059 1.5405L4.57059 4.83217C4.48987 4.85011 4.41814 4.89494 4.36432 4.95773L1.91574 2.50915L1.78121 2.37462C1.44039 2.08761 0.94708 2.03379 0.54347 2.26699C0.0232617 2.56297 -0.156123 3.22668 0.148827 3.74689C0.274395 3.96215 0.453792 4.12361 0.669051 4.2133H0.678001L0.947091 4.28504L4.23874 5.16403C4.22977 5.20887 4.22081 5.24473 4.22081 5.28958C4.22081 5.33442 4.22977 5.37031 4.23874 5.41516L0.929136 6.31207H0.893279L0.669051 6.37486C0.27441 6.54527 0.00531801 6.93094 0.00531801 7.3794Z"
+                                                                fill="#003049" />
+                                                        </svg>
+                                                    </div>
+
+                                                    <p>{{sci.text_content}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {%endif%}
+                                        {% endfor%}
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openVideoModal(embedUrl, title) {
+            // Build a temporary modal entirely in JS so your layout stays untouched
+            const overlay = document.createElement('div');
+            overlay.setAttribute('role', 'dialog');
+            overlay.setAttribute('aria-modal', 'true');
+            overlay.setAttribute('aria-label', title || 'Video');
+            overlay.style.position = 'fixed';
+            overlay.style.inset = '0';
+            overlay.style.background = 'rgba(0,0,0,0.75)';
+            overlay.style.display = 'flex';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+            overlay.style.padding = '2rem';
+            overlay.style.zIndex = '99999';
+
+            const frameWrap = document.createElement('div');
+            frameWrap.style.width = 'min(90vw, 960px)';
+            frameWrap.style.aspectRatio = '16 / 9';
+            frameWrap.style.position = 'relative';
+            frameWrap.style.background = '#000';
+
+            const iframe = document.createElement('iframe');
+            iframe.src = embedUrl;
+            iframe.allow =
+                'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            iframe.allowFullscreen = true;
+            iframe.referrerPolicy = 'origin-when-cross-origin';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = '0';
+            iframe.loading = 'eager';
+
+            const closeBtn = document.createElement('button');
+            closeBtn.type = 'button';
+            closeBtn.textContent = '×';
+            closeBtn.setAttribute('aria-label', 'Close');
+            closeBtn.style.position = 'absolute';
+            closeBtn.style.top = '-12px';
+            closeBtn.style.right = '-12px';
+            closeBtn.style.width = '36px';
+            closeBtn.style.height = '36px';
+            closeBtn.style.borderRadius = '50%';
+            closeBtn.style.border = 'none';
+            closeBtn.style.fontSize = '24px';
+            closeBtn.style.cursor = 'pointer';
+            closeBtn.style.lineHeight = '36px';
+            //closeBtn.style.background = '#fff';
+            //closeBtn.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+
+            function close() {
+                // Remove iframe first to stop playback, then remove overlay
+                iframe.src = 'about:blank';
+                overlay.remove();
+                document.body.style.overflow = '';
+            }
+
+            overlay.addEventListener('click', (e) => {
+                // Close only if clicking outside the video box
+                if (e.target === overlay) close();
+            });
+            closeBtn.addEventListener('click', close);
+            document.addEventListener('keydown', escHandler);
+
+            function escHandler(e) {
+                if (e.key === 'Escape') {
+                    close();
+                    document.removeEventListener('keydown', escHandler);
+                }
+            }
+
+            frameWrap.appendChild(iframe);
+            frameWrap.appendChild(closeBtn);
+            overlay.appendChild(frameWrap);
+            document.body.appendChild(overlay);
+            document.body.style.overflow = 'hidden';
+        }
+    </script>
+
+
+    <script>
+        function changeContent(contentId) {
+            // Hide all content elements
+            var contentElements = document.querySelectorAll('#content > div');
+            contentElements.forEach(function (element) {
+                element.style.display = 'none';
+            });
+
+            // Show the selected content element
+            var selectedContent = document.getElementById(contentId);
+            if (selectedContent) {
+                selectedContent.style.display = 'block';
+            }
+        }
+
+        $('.menu-item').on('click', function () {
+            $('.menu-item').css('background', '');
+            $(this).css('background', '#FCBF49')
+        })
+        function changeResContent(contentResId) {
+            // Hide all content elements
+            var contentElements = document.querySelectorAll('#contentRes > div');
+            contentElements.forEach(function (element) {
+                element.style.display = 'none';
+                mainMenu.classList.toggle('hide')
+            });
+
+            // Show the selected content element
+            var selectedContent = document.getElementById(contentResId);
+            if (selectedContent) {
+                selectedContent.style.display = 'block';
+                selectedContent.style.overflowY = 'scroll';
+
+            }
+        }
+
+
+        const menuBtn = document.querySelector('#menuBtn')
+        const mainMenu = document.querySelector('#main')
+        const btnMenu = document.querySelector('#btn')
+
+        menuBtn.addEventListener('click', () => {
+            mainMenu.classList.toggle('hide')
+        })
+
+        // btnMenu.addEventListener('click', ()=> {
+        //     mainMenu.classList.toggle('hide')
+        // })
+
+
+
+        const next = document.getElementById('next');
+        const prev = document.getElementById('prev');
+        const swiper = document.getElementById('items');
+        const swiperItem = document.getElementById('item');
+        const main = document.getElementById('main-swiper');
+        const swiperItemWidth = swiperItem.getBoundingClientRect().width;
+
+        let isDown = false;
+        let scrollLeft;
+        let startX;
+
+
+        function showHideButtons() {
+
+            const swiperWidth = swiper.scrollWidth;
+            const mainWidth = main.getBoundingClientRect().width;
+
+            if (swiperWidth > mainWidth) {
+
+                if (swiper.clientWidth + swiper.scrollLeft >= swiper.scrollWidth - 2) {
+                    next.style.visibility = "hidden";
+                }
+                else if (swiper.clientWidth - swiper.scrollLeft >= swiper.clientWidth - 2) {
+                    prev.style.visibility = "hidden";
+                }
+                else {
+                    next.style.visibility = "visible";
+                    prev.style.visibility = "visible";
+                }
+                swiper.style.justifyContent = "start";
+            }
+            else {
+                swiper.style.justifyContent = "center";
+            }
+        }
+
+        window.addEventListener('resize', showHideButtons);
+        onload = showHideButtons();
+
+
+        swiper.addEventListener('scroll', () => {
+            showHideButtons();
+        });
+
+        swiper.addEventListener('mousedown', (e) => {
+            isDown = true;
+            swiper.classList.add('active');
+            startX = e.pageX - swiper.offsetLeft;
+            scrollLeft = swiper.scrollLeft;
+        });
+
+        swiper.addEventListener('mouseleave', () => {
+            isDown = false;
+            swiper.classList.remove('active');
+        });
+
+        swiper.addEventListener('mouseup', () => {
+            isDown = false;
+            swiper.classList.remove('active');
+        });
+
+        swiper.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - swiper.offsetLeft;
+            const walk = (x - startX);
+            swiper.scrollLeft = scrollLeft - walk;
+        });
+
+        prev.addEventListener('click', (e) => {
+            startX = e.pageX - swiper.offsetLeft;
+            swiper.scrollLeft -= swiperItemWidth * 2;
+        });
+
+        next.addEventListener('click', (e) => {
+            startX = e.pageX - swiper.offsetLeft;
+            swiper.scrollLeft += swiperItemWidth * 2;
+        });
+
+    </script>
+    <!-- Video Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="videoModalLabel"></h5> -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="stopVideo()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="videoFrame" style="width:100%; height:90vh" src="" frameborder="0"
+                        allowfullscreen></iframe>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+    </div>
+    <div class="flex-1"></div>
+
+    <div class="w-full">
+        <div class="responsive-contant w-full flex sm-flex llg-hide middle center p-2">
+            <span> <img src="{% static './Assets//powered by.png' %} " /> </span>
+        </div>
+    </div>
+
+</body>
+
+</html>

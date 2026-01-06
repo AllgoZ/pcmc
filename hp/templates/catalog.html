@@ -1,0 +1,225 @@
+{% load static %}
+{% static "css/Assets" as baseUrl %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Catalog</title>
+    <link rel="stylesheet" href=" {% static 'css/catalog.css' %} " />
+  </head>
+  <body>
+    <div class="background">
+      <div class="logout-btn">
+        <a href=" {% url 'index' %} "><img src=" {% static 'css/Assets/logout.png' %} " /></a>
+      </div>
+      <div class="next-button">
+        <button type="submit" onclick="window.location.href=' {% url 'upload' %} '">Next</button>
+      </div>
+      <div class="back-button">
+        <button type="submit" onclick="window.location.href=' {% url 'personaldetails' %} '">Back</button>
+      </div>
+<!-- Radio Buttons for Delivery Information -->
+<form method="POST" action="{% url 'catalog' %}">
+  {% csrf_token %}
+<div class="delivery-options">
+  <label>Delivery within 24 hours:</label>
+  <label>
+    <input type="radio" name="delivery" value="yes" /> Yes
+  </label>
+  <label>
+    <input type="radio" name="delivery" value="no" /> No
+  </label>
+</div>
+<div class="futurex-options">
+  <label>Interested in Futurex product:</label>
+  <label>
+    <input type="radio" name="delivery" value="yes" /> Yes
+  </label>
+  <label>
+    <input type="radio" name="delivery" value="no" /> No
+  </label>
+</div>
+</form>
+      <div class="catalog-container">
+        <div class="catalog">
+          <!-- Two Wheeler Section -->
+          <div class="section">
+            <div class="header">MCO: Motorcycle Oil</div>
+            <div class="product-grid">
+              {% for product in mco_products %}
+                <div class="product-item" onclick="showProductDetails('{{ product.id }}')">
+                  <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+                  <div class="product-label">{{ product.name }}</div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <!-- DEO Section (Diesel Engine Oil) -->
+          <div class="section">
+            <div class="header">DEO: Diesel Engine Oil</div>
+            <div class="product-grid">
+              {% for product in deo_products %}
+                <div class="product-item" onclick="showProductDetails('{{ product.id }}')">
+                  <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+                  <div class="product-label">{{ product.name }}</div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <!-- Four Wheeler Section -->
+          <div class="section">
+            <div class="header">PCO: Passenger Car Oil</div>
+            <div class="product-grid">
+              {% for product in pco_products %}
+                <div class="product-item" onclick="showProductDetails('{{ product.id }}')">
+                  <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+                  <div class="product-label">{{ product.name }}</div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two Wheeler Product Modals -->
+    {% for product in mco_products %}
+    <div class="product-details-modal" id="productDetailsModal{{ product.id }}" style="display: none;">
+      <div class="modal-content">
+        <span class="close-button" onclick="closeProductDetails({{ product.id }})">&times;</span>
+        <div class="product-image">
+          <img id="productImage{{ product.id }}" src="{{ product.image.url }}" alt="Product Image" height="200px" />
+        </div>
+        <h2 id="productName{{ product.id }}">{{ product.name }}</h2>
+        <div class="quantity-selection">
+          {% for quantity in product.quantities %}
+            <div class="quantity-option">
+              <label>{{ quantity.size }}</label>
+              <button onclick="decrement('quantity{{ product.id }}_{{ forloop.counter }}')">-</button>
+              <span id="quantity{{ product.id }}_{{ forloop.counter }}">{{ quantity.quantity }}</span>
+              <button onclick="increment('quantity{{ product.id }}_{{ forloop.counter }}')">+</button>
+            </div>
+          {% endfor %}
+        </div>
+        <button class="confirm-button" onclick="closeProductDetails({{ product.id }})">OK</button>
+        <div class="applications">
+          <img src=" {% static 'css/Assets/application.png' %} " alt="Applications Icon" />
+          <p id="productApplications{{ product.id }}">{{ product.applications }}</p>
+        </div>
+        <div class="features-benefits">
+          <img src=" {% static 'css/Assets/f&b.png' %} " alt="Features Icon" />
+          <ul id="productFeatures{{ product.id }}">
+            {% for feature in product.features.splitlines %}
+              <li>{{ feature }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    <!-- Four Wheeler Product Modals -->
+    {% for product in deo_products %}
+  <div class="product-details-modal" id="productDetailsModal{{ product.id }}" style="display: none;">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeProductDetails({{ product.id }})">&times;</span>
+      <div class="product-image">
+        <img id="productImage{{ product.id }}" src="{{ product.image.url }}" alt="Product Image" height="200px" />
+      </div>
+      <h2 id="productName{{ product.id }}">{{ product.name }}</h2>
+      
+      <!-- Quantity Selection dynamically from product.quantities -->
+      <div class="quantity-selection">
+        {% for quantity in product.quantities %}
+          <div class="quantity-option">
+            <label>{{ quantity.size }}</label>
+            <button onclick="decrement('quantity{{ product.id }}_{{ forloop.counter }}')">-</button>
+            <span id="quantity{{ product.id }}_{{ forloop.counter }}">{{ quantity.quantity }}</span>
+            <button onclick="increment('quantity{{ product.id }}_{{ forloop.counter }}')">+</button>
+          </div>
+        {% endfor %}
+      </div>
+
+      <button class="confirm-button" onclick="closeProductDetails({{ product.id }})">OK</button>
+
+      <!-- Product Applications -->
+      <div class="applications">
+        <img src=" {% static 'css/Assets/application.png' %} " alt="Applications Icon" />
+        <p id="productApplications{{ product.id }}">{{ product.applications }}</p>
+      </div>
+
+      <!-- Product Features and Benefits -->
+      <div class="features-benefits">
+        <img src=" {% static 'css/Assets/f&b.png' %} " alt="Features Icon" />
+        <ul id="productFeatures{{ product.id }}">
+          {% for feature in product.features.splitlines %}
+            <li>{{ feature }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+    {% for product in pco_products %}
+    <div class="product-details-modal" id="productDetailsModal{{ product.id }}" style="display: none;">
+      <div class="modal-content">
+        <span class="close-button" onclick="closeProductDetails({{ product.id }})">&times;</span>
+        <div class="product-image">
+          <img id="productImage{{ product.id }}" src="{{ product.image.url }}" alt="Product Image" height="200px" />
+        </div>
+        <h2 id="productName{{ product.id }}">{{ product.name }}</h2>
+        <div class="quantity-selection">
+          {% for quantity in product.quantities %}
+            <div class="quantity-option">
+              <label>{{ quantity.size }}</label>
+              <button onclick="decrement('quantity{{ product.id }}_{{ forloop.counter }}')">-</button>
+              <span id="quantity{{ product.id }}_{{ forloop.counter }}">{{ quantity.quantity }}</span>
+              <button onclick="increment('quantity{{ product.id }}_{{ forloop.counter }}')">+</button>
+            </div>
+          {% endfor %}
+        </div>
+        <button class="confirm-button" onclick="closeProductDetails({{ product.id }})">OK</button>
+        <div class="applications">
+          <img src=" {% static 'css/Assets/application.png' %} " alt="Applications Icon" />
+          <p id="productApplications{{ product.id }}">{{ product.applications }}</p>
+        </div>
+        <div class="features-benefits">
+          <img src=" {% static 'css/Assets/f&b.png' %} " alt="Features Icon" />
+          <ul id="productFeatures{{ product.id }}">
+            {% for feature in product.features.splitlines %}
+              <li>{{ feature }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    
+    <!-- Inline JavaScript -->
+    <script>
+      function increment(id) {
+        const quantity = document.getElementById(id);
+        quantity.textContent = parseInt(quantity.textContent) + 1;
+      }
+
+      function decrement(id) {
+        const quantity = document.getElementById(id);
+        const count = parseInt(quantity.textContent);
+        if (count > 0) {
+          quantity.textContent = count - 1;
+        }
+      }
+
+      function showProductDetails(productId) {
+        document.getElementById('productDetailsModal' + productId).style.display = "flex";
+      }
+
+      function closeProductDetails(productId) {
+        document.getElementById('productDetailsModal' + productId).style.display = "none";
+      }
+    </script>
+  </body>
+</html>

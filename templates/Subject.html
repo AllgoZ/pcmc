@@ -1,0 +1,70 @@
+{% load static %}
+{% static "Assets" as baseUrl %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>tepros.in</title>
+    <link rel="icon" type="image/x-icon" href=" {% static './Assets/favicon.ico' %} ">
+    <link rel="stylesheet" href=" {% static 'styles.css' %} ">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body style="background-color: #F77F00; height:100vh; height:100vh;display: flex;flex-direction: column;">
+
+    <div class='body-Container flex col h-full'>
+        <div class='App flex col '>
+                <div class='subject_component flex px-4 '>
+                    <div class='subject-a flex middle center'>
+                        <a   href=" {% url 'home' %} ">
+                            <img src="{{scls.content_instances.0.school_logo.url}}" alt='Tepros'>
+                        </a>
+                    </div>
+                    <div class="flex-1"></div>
+                <div class="responsive-pcmcimg  flex middle center">
+                    <img src=" {% static './Assets/pcmc logo.png' %} " alt="pcmc"  />
+                </div>
+                    <div class="flex-1"></div>
+                    <div class="flex row gap-2 p-2" style="width: auto;">
+                        <a href=" {% url 'subject' %} " style="width:28px;height:28px;"><img src=" {% static './Assets/Home.png' %} " alt="" style="width:28px;height:28px;" class="opasity"></a>
+                        <a href=" {% url 'home' %} " style="width:28px;height:28px;"><img src=" {% static './Assets/Loglot.png' %} " alt="" style="width:28px;height:28px;" class="opasity"></a>
+                    </div>
+                </div>
+            <div class="standard flex middle center col pt-6 ">
+                <span class="llg-hide"> Standard {{scis.content_instances.0.section}}</span>
+            <div class="math stubject-resTab" style="height: 600px;">
+                <a href=" {% url 'maths' %} " >
+                    <img src=" {% static './Assets//maths (1).svg' %} " class="maths-img on-mouse" />
+                </a>
+                <a href=" {% url 'science' %} ">
+                    <img src=" {% static './Assets//Property 1=Default.svg' %} " class="maths-img on-mouse" />
+                </a>
+
+            </div>
+            <div class="math  stubject-resMobile flex col " style="height: auto; padding: 5rem 0;">
+                <a href=" {% url 'mathamatics' %} " >
+                    <img src=" {% static './Assets//maths (1).svg' %} " class="maths-img on-mouse" />
+                </a>
+                <a href=" {% url 'sciencebook' %} ">
+                    <img src=" {% static './Assets//Property 1=Default.svg' %} " class="maths-img on-mouse" />
+                </a>
+
+            </div>
+        </div>
+        {% comment %} <div class="responsive-background"><img src="{% static './Assets/Group.svg' %}" /></div> {% endcomment %}
+        </div>
+    </div>
+    <div class="flex-1"></div>
+    <div class="w-full" >
+        <div class="responsive-contantHome w-full flex sm-flex llg-hide middle center p-6">
+            <span> <img src="{% static './Assets//powered by.png' %} " /> </span>
+        </div>
+    </div>
+</body>
+
+</html>

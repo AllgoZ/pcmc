@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assessment</title>
+    <link rel="icon" type="image/x-icon" href="{% static './Assets/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F77F00;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .header, .footer {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .header a, .footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .header img, .footer img {
+            max-height: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class='body-Container flex col h-full'>
+        <div class='App flex col '>
+            <div class='subject_component flex px-4 '>
+                <div class='subject-a flex middle center'>
+                    <a href=" {% url 'home' %} ">
+                        <img src="{% static '/Assets/Tepros.png' %}" alt='Tepros'>
+                    </a>
+                </div>
+                <div class="flex-1"></div>
+                <div class="responsive-pcmcimg  flex middle center">
+                    <img src=" {% static './Assets/pcmc logo.png' %} " alt="pcmc" />
+                </div>
+                <div class="flex-1"></div>
+                <div class="flex row gap-2 p-2" style="width: auto;">
+                    <a href=" {% url 'subject' %} " style="width:28px;height:28px;"><img src=" {% static './Assets/Home.png' %} " alt="" style="width:28px;height:28px;" class="opasity"></a>
+                    <a href=" {% url 'home' %} " style="width:28px;height:28px;"><img src=" {% static './Assets/Loglot.png' %} " alt="" style="width:28px;height:28px;" class="opasity"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Assessment Instructions</h1>
+        <p>Instructions about the assessment.</p>
+        <a href="{% url 'reload' %}" class="btn">Start Assessment</a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="responsive-contantHome w-full flex sm-flex llg-hide middle center p-6">
+            <span><img src="{% static './Assets/powered by.png' %}" alt="Powered by"></span>
+        </div>
+    </div>
+
+</body>
+</html>

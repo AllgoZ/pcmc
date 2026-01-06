@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HP Lubricants Login</title>
+    <link rel="stylesheet" href=" {% static 'css/selection.css' %} " />
+  </head>
+  <body>
+    <div class="background">
+      <div class="logout-btn">
+        <a href=" {% url 'index' %} "><img src=" {% static 'css/Assets/logout.png' %} " /></a>
+      </div>
+      <div class="button-container">
+          <button
+            type="submit"
+            class="round-button red"
+            onclick="window.location.href=' {% url 'personaldetails' %}'"
+          >
+            Product Catalogue
+          </button>
+          <button
+            class="round-button blue"
+            onclick="window.location.href=' {% url 'dashboard' %} '"
+          >
+            Dashboard
+          </button>
+      </div>
+    </div>
+  </body>
+</html>

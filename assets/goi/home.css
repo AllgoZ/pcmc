@@ -1,0 +1,273 @@
+.home{
+    position: relative;
+}
+.homeContainerOne .homeContainerOneContent  h1{
+    font-size: 46px;
+    font-weight: 600;
+    color: #1E1E2B;
+}
+.homeContainerOne .homeContainerOneContent  p{
+    font-size: 18px;
+    font-weight: 500;
+    color: #2d2d2d;
+    line-height:  2rem;
+}
+.homeContainerOne .homeContainerOneContent  button{
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    width: 230px;
+    background-color: #b81e46;
+    height: 45px;
+}
+.homeContainerOne {
+    padding: 9rem 0 ;
+}
+
+.homeContainerOneContent{
+    padding:  1rem 6rem;
+    width: 60%;
+}
+.homeContainerOneImage{
+    width: 40%;
+}
+
+.flex {
+    display: flex;
+}
+.col {
+    flex-direction: column;
+}
+.gap-2 {
+    gap: 2rem; /* or any other suitable value */
+}
+
+.homeContainerOneImage img{
+    width: 100%;
+}
+.homeContainerTwo{
+    width: 100%;
+    background-color: #F4E9F2;
+    padding: 2rem;
+}
+.homeContainerTwoContent .homeContainerTwoDetails{
+    width: 50%;
+
+}
+.homeContainerTwoContent .homeContainerTwoDetails span{
+    font-size: 40px;
+    font-weight: 600;
+    color: #1E1E2B;
+    padding: 1rem 2rem ;
+}
+.homeContainerTwoContent .homeContainerTwoDetails p{
+    font-size: 18px;
+    font-weight: 500;
+    color: #2d2d2d;
+    line-height: 2rem;
+    padding:1rem 2rem;
+}
+.homeContainerTwoDetailsImage {
+    width: 50%;
+}
+.homeContainerTwoDetailsImage img{
+    width: 100%;
+}
+footer{
+    padding: 0rem;
+    width: 100%;
+}
+footer p{
+    font-size: 18px;
+    font-weight: 500;
+    color: #2d2d2d; 
+}
+footer span{
+    font-size: 36px;
+    font-weight: 600;
+    color: #1E1E2B;
+}
+.footerLine{
+    border-bottom: 2px solid #2d2d2d;
+    width: 100%;
+}
+footer h6{
+    font-size: 14px;
+    font-weight: 500;
+    color: #1E1E2B;
+}
+/* login */
+.Login{
+    display: none;
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    background: rgb(0,0,0,0.3);
+    z-index: 100000;
+    
+}
+.LoginContainer img{
+    width: 50%;
+}
+.Loginform{
+    width: 50%;
+    background-color: #fff;
+    padding: 2rem;
+}
+.Loginform .Close{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+.formContainer{
+    width: 100%;
+    max-width: 500px;
+    
+}
+.formContainer h2{
+    color: #E91E63;
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+}
+.formContainer p{
+    color: rgb(45, 45, 45,0.3);
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}
+.formInput{
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+    background-color: rgb(1, 1, 1,0.2);
+}
+.formInput input{
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+.formCheak label{
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(45, 45, 45,0.3);
+}
+.formCheak span{
+    font-size: 16px;
+    font-weight: 500;
+    color:#E91E63;
+}
+.LoginButton button{
+    height: 50px;
+    background-color: #E91E63;
+    color: #fff;
+    border-radius: 8px;
+    width: 100%;
+}
+/* register */
+.Register{
+    display: none;
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    z-index: 100006;
+    background-color: rgba(255, 255, 255, 0.4);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+.RegContainer{
+    height: 100vh;
+    width: 100%;
+ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.RegForm{
+    width: 420px;
+    height: 600px;
+    background: rgb(0,0,0,0.6);
+    padding: 1rem;
+    color: #fff;
+    overflow-y: scroll;
+}
+.RegForm h3{
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+.RegForm input{
+    width: 100%;
+    outline: none;
+    background-color: #fff;
+    border: none;
+    color: #1E1E2B;
+    padding: 0.5rem;
+}
+.RegForm select{
+    width: 100%;
+    outline: none;
+    background-color: #fff;
+    border: none;
+    color: #1E1E2B;
+    padding: 0.5rem;
+}
+.RegForm button{
+    background-color: #E91E63;
+    width: 200px;
+    height: 40px;
+    color: #fff;
+}
+/* Authentication email */
+.EmailContainer{
+    display: none;
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    z-index: 1000000;
+    background-color: transparent;
+   
+}
+.EMCN{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+.emailContent{
+    width: 600px;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
+    position: relative;
+    
+}
+.EmailContainer .Close{
+  
+    position: absolute;
+    width: 100%;
+}
+.EmailContainer .closesvg{
+    display: flex;
+    width: 625px;
+    justify-content: flex-end;
+    align-items: flex-end;
+    position: absolute;
+    z-index: 2000000;
+    margin-top: -20px;
+}
+.emailContent p{
+    font-size: 24px;
+    font-weight: 400;
+    white-space: nowrap;
+}
+.emailContent span{
+    font-size: 15px;
+    font-weight: 600;
+    color: 1E1E2B;
+    white-space: nowrap;
+}

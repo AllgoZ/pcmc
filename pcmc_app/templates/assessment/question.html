@@ -1,0 +1,287 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Question {{ question_number }}</title>
+    <link rel="icon" type="image/x-icon" href=" {% static './Assets/favicon.ico' %} ">
+    <link rel="stylesheet" href=" {% static 'styles.css' %} ">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Assessment Card Styles */
+        .assessment-container {
+            max-width: 800px;
+            margin: 40px auto; 
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 90%; 
+        }
+
+        h2.q-count {
+            margin-top: 0;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            color: #444;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .option-row {
+            padding: 15px 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center; 
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #fcfcfc;
+        }
+
+        .option-row:hover {
+            background-color: #f0f0f0;
+            border-color: #ccc;
+        }
+
+        .option-row input[type="radio"] {
+            width: auto; /* Override global style */
+            height: auto; /* Override global style */
+            margin-right: 20px;
+            transform: scale(1.2); 
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .option-row label {
+            margin: 0;
+            font-weight: 500;
+            cursor: pointer;
+            flex-grow: 1;
+            font-size: 16px;
+            color: #555;
+            text-align: left; 
+        }
+
+        /* Feedback Styles */
+        .correct-opt {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724;
+        }
+
+        .wrong-opt {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24;
+        }
+
+        .alert {
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        /* Buttons */
+        .btn-custom {
+            background-color: #003049;
+            color: white;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .btn-custom:hover, .btn-custom:focus {
+            background-color: #002233;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .top-buttons a {
+            color: #007bff;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .top-buttons a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .assessment-container {
+                margin: 20px auto;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body style="background-color: #F77F00;height:100vh;display: flex;flex-direction: column;">
+
+    <!-- Outer Container from Sciencebook -->
+    <div class='body-Container h-full '>
+        <div class='AppSubject flex col  '>
+
+            <!-- Header -->
+            <div class='subject_component flex px-4 py-2 '>
+                <div class=''>
+                    <a class="responsive-img flex middle" href=" {% url 'home' %} ">
+                        <img src=" {% static './Assets//Tepros.png' %} " alt='Tepros'>
+                    </a>
+                </div>
+                <div class="flex-1"></div>
+                <div class="responsive-pcmcimg  flex middle center">
+                    <img src=" {% static './Assets/pcmc logo.png' %} " alt="pcmc" />
+                </div>
+                <div class="flex-1"></div>
+                <div class="responsive-book row llg-gap-2 p-2  llg-flex" style="width: auto;">
+                    <a href=" {% url 'subject' %} "><img src=" {% static './Assets/Home.png' %} " alt=""
+                            style="width:28px;height:28px;" class="opasity"></a>
+                    <a href=" {% url 'home' %} "><img src=" {% static './Assets/Loglot.png' %} " alt=""
+                            style="width:28px;height:28px;" class="opasity"></a>
+                </div>
+            </div>
+
+            <!-- Main Assessment Content -->
+            <div class="flex-1 flex col w-full relative" style="overflow-y: auto;">
+                
+                <div class="assessment-container">
+                    
+                    <div class="top-buttons">
+                        <a href="{% url 'reload' %}">Reload</a>
+                        <a href="{% url 'home' %}">Home</a>
+                    </div>
+            
+                    {% if finished %}
+                        <div style="text-align: center; padding: 40px 0;">
+                            <h2 class="q-count">Assessment Completed</h2>
+                            <p style="font-size: 18px; color: #555;">Thank you for completing the assessment!</p>
+                            <br>
+                            <a href="{% url 'home' %}" class="btn-custom">Return Home</a>
+                        </div>
+                    {% else %}
+                        <h2 class="q-count">Question {{ question_number }} of {{ total_questions }}</h2>
+                        <p class="question-text">{{ question.question_text }}</p>
+                
+                        <form method="POST">
+                            {% csrf_token %}
+                            
+                            <div class="option-group">
+                                <!-- Option 1 -->
+                                <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 1 %}correct-opt{% elif feedback.selected_option == 1 %}wrong-opt{% endif %}{% endif %}">
+                                    <input type="radio" id="opt1" name="answer" value="1" 
+                                        {% if feedback.show %}disabled{% endif %} 
+                                        {% if feedback.selected_option == 1 %}checked{% endif %}>
+                                    <label for="opt1">{{ question.option1 }}</label>
+                                </div>
+                
+                                <!-- Option 2 -->
+                                <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 2 %}correct-opt{% elif feedback.selected_option == 2 %}wrong-opt{% endif %}{% endif %}">
+                                    <input type="radio" id="opt2" name="answer" value="2" 
+                                        {% if feedback.show %}disabled{% endif %} 
+                                        {% if feedback.selected_option == 2 %}checked{% endif %}>
+                                    <label for="opt2">{{ question.option2 }}</label>
+                                </div>
+                
+                                <!-- Option 3 -->
+                                <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 3 %}correct-opt{% elif feedback.selected_option == 3 %}wrong-opt{% endif %}{% endif %}">
+                                    <input type="radio" id="opt3" name="answer" value="3" 
+                                        {% if feedback.show %}disabled{% endif %} 
+                                        {% if feedback.selected_option == 3 %}checked{% endif %}>
+                                    <label for="opt3">{{ question.option3 }}</label>
+                                </div>
+                
+                                <!-- Option 4 -->
+                                <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 4 %}correct-opt{% elif feedback.selected_option == 4 %}wrong-opt{% endif %}{% endif %}">
+                                    <input type="radio" id="opt4" name="answer" value="4" 
+                                        {% if feedback.show %}disabled{% endif %} 
+                                        {% if feedback.selected_option == 4 %}checked{% endif %}>
+                                    <label for="opt4">{{ question.option4 }}</label>
+                                </div>
+                            </div>
+                
+                            {% if feedback.show %}
+                                <div class="feedback-section">
+                                    {% if feedback.is_correct %}
+                                        <div class="alert alert-success">
+                                            <strong>Correct!</strong> {{ feedback.reason }}
+                                        </div>
+                                    {% else %}
+                                        <div class="alert alert-danger">
+                                            <strong>Incorrect!</strong> The correct answer is: <strong>{{ feedback.correct_text }}</strong>
+                                            {% if feedback.reason %}<br>Reason: {{ feedback.reason }}{% endif %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div style="display: flex; justify-content: flex-end;">
+                                    {% if question_number < total_questions %}
+                                    <a href="{% url 'question' question_number=question_number|add:1 %}" class="btn-custom">Next Question &rarr;</a>
+                                    {% else %}
+                                    <a href="{% url 'home' %}" class="btn-custom">Finish Assessment</a>
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <button type="submit" class="btn-custom" style="width: 100%;">Submit Answer</button>
+                            {% endif %}
+                        </form>
+                    {% endif %}
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer from Sciencebook -->
+    <div class="flex-1"></div>
+    <div class="w-full">
+        <div class="responsive-contant w-full flex sm-flex llg-hide middle center p-2">
+            <span> <img src="{% static './Assets//powered by.png' %} " /> </span>
+        </div>
+    </div>
+
+</body>
+</html>
