@@ -21,7 +21,7 @@
         <div class='App flex col '>
                 <div class='subject_component flex px-4 '>
                     <div class='subject-a flex middle center'>
-                        <a   href=" {% url 'home' %} ">
+                        <a >
                             <img src="{{scls.content_instances.0.school_logo.url}}" alt='Tepros'>
                         </a>
                     </div>
@@ -31,19 +31,28 @@
                 </div>
                     <div class="flex-1"></div>
                     <div class="flex row gap-2 p-2" style="width: auto;">
-                        <a href=" {% url 'subject' %} " style="width:28px;height:28px;"><img src=" {% static './Assets/Home.png' %} " alt="" style="width:28px;height:28px;" class="opasity"></a>
+
                         <a href=" {% url 'home' %} " style="width:28px;height:28px;"><img src=" {% static './Assets/Loglot.png' %} " alt="" style="width:28px;height:28px;" class="opasity"></a>
                     </div>
                 </div>
             <div class="standard flex middle center col pt-6 ">
                 <span class="llg-hide"> Standard {{scis.content_instances.0.section}}</span>
             <div class="math stubject-resTab" style="height: 600px;">
+                {% if user.username|slice:":3" == "pcm" %}
                 <a href=" {% url 'maths' %} " >
                     <img src=" {% static './Assets//maths (1).svg' %} " class="maths-img on-mouse" />
                 </a>
                 <a href=" {% url 'science' %} ">
                     <img src=" {% static './Assets//Property 1=Default.svg' %} " class="maths-img on-mouse" />
                 </a>
+                {% else %}
+                <a href=" {% url 'mathamatics' %} " >
+                    <img src=" {% static './Assets//maths (1).svg' %} " class="maths-img on-mouse" />
+                </a>
+                <a href=" {% url 'sciencebook' %} ">
+                    <img src=" {% static './Assets//Property 1=Default.svg' %} " class="maths-img on-mouse" />
+                </a>
+                {% endif %}
 
             </div>
             <div class="math  stubject-resMobile flex col " style="height: auto; padding: 5rem 0;">

@@ -2,35 +2,41 @@
 {% static "Assets" as baseUrl %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>tepros.in</title>
-        <link rel="icon" type="image/x-icon" href=" {% static './Assets/favicon.ico' %} ">
-        <link rel="stylesheet" href=" {% static 'styles.css' %} ">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <style>
-    
-        </style>
-    </head>
+
+<head>
+    <title>tepros.in</title>
+    <link rel="icon" type="image/x-icon" href=" {% static './Assets/favicon.ico' %} ">
+    <link rel="stylesheet" href=" {% static 'styles.css' %} ">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
 <body style="background-color: #F77F00; height:100vh;display: flex;flex-direction: column;">
 
     <div class='body-Container h-full '>
         <div class='App flex  col'>
             <div class='subject_component flex px-4 '>
                 <div class='subject-a flex middle'>
-                    <a   href=" {% static './Home.html' %} ">
+                    <a href=" {% static './Home.html' %} ">
                         <img src=" {% static './Assets//Tepros.png' %} " alt='Tepros'>
                     </a>
                 </div>
                 <div class="flex-1"></div>
                 <div class="flex row gap-2 p-2" style="width: auto;">
-                    <a href=" {% url 'subject' %} " style="width:28px;height:28px;"><img src=" {% static './Assets/Home.png' %} " alt="" style="width:28px;height:28px;" class="opasity"></a>
-                    <a href=" {% url 'home' %} " style="width:28px;height:28px;"><img src=" {% static './Assets/Loglot.png' %} " alt="" style="width:28px;height:28px;" class="opasity"></a>
+                    <a href=" {% url 'subject' %} " style="width:28px;height:28px;"><img
+                            src=" {% static './Assets/Home.png' %} " alt="" style="width:28px;height:28px;"
+                            class="opasity"></a>
+                    <a href=" {% url 'home' %} " style="width:28px;height:28px;"><img
+                            src=" {% static './Assets/Loglot.png' %} " alt="" style="width:28px;height:28px;"
+                            class="opasity"></a>
                 </div>
             </div>
 
-             <!-- <div class="col-md-12 total-height  total-height d-flex w-100 bg-img">
+            <!-- <div class="col-md-12 total-height  total-height d-flex w-100 bg-img">
                 <div class="col-md-7 firstsix" >
                     <img src=" {% static './Assets//comp.png' %} " alt='Tepose' class="image-size">
                  </div>
@@ -52,68 +58,62 @@
             </div>  -->
             <div class="StandardMaths">
                 <div class="flex-1"></div>
-                <div >
-                    <div class=" login"   >
+                <div>
+                    <div class=" login">
                         <div style="position: relative;">
-                       <img src=" {% static './Assets/Standard maths.png' %} " alt="" class="science-img" style="position: relative;" />    
-                    </div>                     
-                    
-                    <!-- <div  style="width: 420px;height: 48px;position: absolute;margin-top:19%; margin-left: 2.5%;" class="flex row gap-3"> -->
-                        <div style="position: absolute; width: 490px; height: 410px; justify-content: center; align-items: flex-end;" class="flex">
+                            <img src=" {% static './Assets/Standard maths.png' %} " alt="" class="science-img"
+                                style="position: relative;" />
+                        </div>
+
+                        <!-- <div  style="width: 420px;height: 48px;position: absolute;margin-top:19%; margin-left: 2.5%;" class="flex row gap-3"> -->
+                        <div style="position: absolute; width: 490px; height: 410px; justify-content: center; align-items: flex-end;"
+                            class="flex">
                             <div class="flex row gap-3">
                                 {% if user.username|slice:"3:5" == "06" %}
-                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/6.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/7.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/8.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/9.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/10.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
+                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/6.png' %}" alt=""
+                                        class="sixthover new-width" style="width: 48px; height: 48px;"></a>
                                 {% elif user.username|slice:"3:5" == "07" %}
-                                <a href=""><img src="{% static './Assets/6.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/7.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/8.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/9.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/10.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
+                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/7.png' %}" alt=""
+                                        class="sixthover new-width" style="width: 48px; height: 48px;"></a>
                                 {% elif user.username|slice:"3:5" == "08" %}
-                                <a href=""><img src="{% static './Assets/6.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/7.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/8.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/9.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/10.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
+                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/8.png' %}" alt=""
+                                        class="sixthover new-width" style="width: 48px; height: 48px;"></a>
                                 {% elif user.username|slice:"3:5" == "09" %}
-                                <a href=""><img src="{% static './Assets/6.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/7.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/8.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/9.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/10.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
+                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/9.png' %}" alt=""
+                                        class="sixthover new-width" style="width: 48px; height: 48px;"></a>
                                 {% elif user.username|slice:"3:5" == "10" %}
-                                <a href=""><img src="{% static './Assets/6.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/7.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/8.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href=""><img src="{% static './Assets/9.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/10.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
+                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/10.png' %}" alt=""
+                                        class="sixthover new-width" style="width: 48px; height: 48px;"></a>
                                 {% elif user.username|slice:":3" == "pcm" %}
-                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/6.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/7.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/8.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/9.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
-                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/10.png' %}" alt="" class="sixthover new-width" style="width: 48px; height: 48px;"></a>
+                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/6.png' %}" alt=""
+                                        class="sixthover new-width" style="width: 48px; height: 48px;"></a>
+                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/7.png' %}" alt=""
+                                        class="sixthover new-width" style="width: 48px; height: 48px;"></a>
+                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/8.png' %}" alt=""
+                                        class="sixthover new-width" style="width: 48px; height: 48px;"></a>
+                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/9.png' %}" alt=""
+                                        class="sixthover new-width" style="width: 48px; height: 48px;"></a>
+                                <a href="{% url 'mathamatics' %}"><img src="{% static './Assets/10.png' %}" alt=""
+                                        class="sixthover new-width" style="width: 48px; height: 48px;"></a>
                                 {% endif %}
                             </div>
                         </div>
+                    </div>
+
                 </div>
-               
             </div>
-            </div>
-            
+
         </div>
-        {% comment %} <div class="responsive-background"><img src="{% static './Assets/Group.svg' %}" /></div> {% endcomment %}
+        {% comment %} <div class="responsive-background"><img src="{% static './Assets/Group.svg' %}" /></div> {%
+        endcomment %}
     </div>
     <div class="flex-1"></div>
-    
-    <div class="w-full" >
+
+    <div class="w-full">
         <div class="responsive-contantHome w-full flex sm-flex llg-hide middle center p-6">
             <span> <img src="{% static './Assets//powered by.png' %} " /> </span>
         </div>
     </div>
 </body>
+
 </html>

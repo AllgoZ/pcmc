@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Question {{ question_number }}</title>
     <link rel="icon" type="image/x-icon" href=" {% static './Assets/favicon.ico' %} ">
@@ -15,12 +16,12 @@
         /* Assessment Card Styles */
         .assessment-container {
             max-width: 800px;
-            margin: 40px auto; 
+            margin: 40px auto;
             background: #fff;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 90%; 
+            width: 90%;
         }
 
         h2.q-count {
@@ -49,7 +50,7 @@
             border: 1px solid #e0e0e0;
             border-radius: 8px;
             display: flex;
-            align-items: center; 
+            align-items: center;
             cursor: pointer;
             transition: all 0.2s ease;
             background-color: #fcfcfc;
@@ -61,10 +62,12 @@
         }
 
         .option-row input[type="radio"] {
-            width: auto; /* Override global style */
-            height: auto; /* Override global style */
+            width: auto;
+            /* Override global style */
+            height: auto;
+            /* Override global style */
             margin-right: 20px;
-            transform: scale(1.2); 
+            transform: scale(1.2);
             cursor: pointer;
             flex-shrink: 0;
         }
@@ -76,7 +79,7 @@
             flex-grow: 1;
             font-size: 16px;
             color: #555;
-            text-align: left; 
+            text-align: left;
         }
 
         /* Feedback Styles */
@@ -126,7 +129,8 @@
             transition: background 0.3s;
         }
 
-        .btn-custom:hover, .btn-custom:focus {
+        .btn-custom:hover,
+        .btn-custom:focus {
             background-color: #002233;
             color: #fff;
             text-decoration: none;
@@ -137,13 +141,13 @@
             justify-content: space-between;
             margin-bottom: 20px;
         }
-        
+
         .top-buttons a {
             color: #007bff;
             font-weight: 600;
             text-decoration: none;
         }
-        
+
         .top-buttons a:hover {
             text-decoration: underline;
         }
@@ -165,6 +169,7 @@
         <div class='AppSubject flex col  '>
 
             <!-- Header -->
+            {% if not is_popup %}
             <div class='subject_component flex px-4 py-2 '>
                 <div class=''>
                     <a class="responsive-img flex middle" href=" {% url 'home' %} ">
@@ -183,105 +188,164 @@
                             style="width:28px;height:28px;" class="opasity"></a>
                 </div>
             </div>
+            {% endif %}
 
             <!-- Main Assessment Content -->
             <div class="flex-1 flex col w-full relative" style="overflow-y: auto;">
-                
+
                 <div class="assessment-container">
-                    
+
+                    {% if not is_popup %}
                     <div class="top-buttons">
                         <a href="{% url 'reload' %}">Reload</a>
                         <a href="{% url 'home' %}">Home</a>
                     </div>
-            
+                    {% endif %}
+
                     {% if finished %}
-                        <div style="text-align: center; padding: 40px 0;">
-                            <h2 class="q-count">Assessment Completed</h2>
-                            <p style="font-size: 18px; color: #555;">Thank you for completing the assessment!</p>
-                            <br>
-                            <a href="{% url 'home' %}" class="btn-custom">Return Home</a>
-                        </div>
+                    <div style="text-align: center; padding: 40px 0;">
+                        <h2 class="q-count">Assessment Completed</h2>
+                        <p style="font-size: 18px; color: #555;">Thank you for completing the assessment!</p>
+                        <br>
+                        {% if is_popup %}
+                        <button onclick="window.parent.$('#assessmentModal').modal('hide')" class="btn-custom">Close
+                            Assessment</button>
+                        {% else %}
+                        <a href="{% url 'home' %}" class="btn-custom">Return Home</a>
+                        {% endif %}
+                    </div>
                     {% else %}
-                        <h2 class="q-count">Question {{ question_number }} of {{ total_questions }}</h2>
-                        <p class="question-text">{{ question.question_text }}</p>
-                
-                        <form method="POST">
-                            {% csrf_token %}
-                            
-                            <div class="option-group">
-                                <!-- Option 1 -->
-                                <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 1 %}correct-opt{% elif feedback.selected_option == 1 %}wrong-opt{% endif %}{% endif %}">
-                                    <input type="radio" id="opt1" name="answer" value="1" 
-                                        {% if feedback.show %}disabled{% endif %} 
-                                        {% if feedback.selected_option == 1 %}checked{% endif %}>
-                                    <label for="opt1">{{ question.option1 }}</label>
-                                </div>
-                
-                                <!-- Option 2 -->
-                                <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 2 %}correct-opt{% elif feedback.selected_option == 2 %}wrong-opt{% endif %}{% endif %}">
-                                    <input type="radio" id="opt2" name="answer" value="2" 
-                                        {% if feedback.show %}disabled{% endif %} 
-                                        {% if feedback.selected_option == 2 %}checked{% endif %}>
-                                    <label for="opt2">{{ question.option2 }}</label>
-                                </div>
-                
-                                <!-- Option 3 -->
-                                <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 3 %}correct-opt{% elif feedback.selected_option == 3 %}wrong-opt{% endif %}{% endif %}">
-                                    <input type="radio" id="opt3" name="answer" value="3" 
-                                        {% if feedback.show %}disabled{% endif %} 
-                                        {% if feedback.selected_option == 3 %}checked{% endif %}>
-                                    <label for="opt3">{{ question.option3 }}</label>
-                                </div>
-                
-                                <!-- Option 4 -->
-                                <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 4 %}correct-opt{% elif feedback.selected_option == 4 %}wrong-opt{% endif %}{% endif %}">
-                                    <input type="radio" id="opt4" name="answer" value="4" 
-                                        {% if feedback.show %}disabled{% endif %} 
-                                        {% if feedback.selected_option == 4 %}checked{% endif %}>
-                                    <label for="opt4">{{ question.option4 }}</label>
-                                </div>
+                    <h2 class="q-count">Question {{ question_number }} of {{ total_questions }}</h2>
+                    <p class="question-text">{{ question.question_text }}</p>
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="option-group">
+                            <!-- Option 1 -->
+                            <!-- FORCE SINGLE LINES -->
+                            <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 1 %}correct-opt{% elif feedback.selected_option == 1 %}wrong-opt{% endif %}{% endif %}">
+                                <input type="radio" id="opt1" name="answer" value="1" {% if feedback.show %}disabled{% endif %} {% if feedback.selected_option == 1 %}checked{% endif %}>
+                                <label for="opt1">{{ question.option1 }}</label>
                             </div>
-                
-                            {% if feedback.show %}
-                                <div class="feedback-section">
-                                    {% if feedback.is_correct %}
-                                        <div class="alert alert-success">
-                                            <strong>Correct!</strong> {{ feedback.reason }}
-                                        </div>
-                                    {% else %}
-                                        <div class="alert alert-danger">
-                                            <strong>Incorrect!</strong> The correct answer is: <strong>{{ feedback.correct_text }}</strong>
-                                            {% if feedback.reason %}<br>Reason: {{ feedback.reason }}{% endif %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                
-                                <div style="display: flex; justify-content: flex-end;">
-                                    {% if question_number < total_questions %}
-                                    <a href="{% url 'question' question_number=question_number|add:1 %}" class="btn-custom">Next Question &rarr;</a>
-                                    {% else %}
-                                    <a href="{% url 'home' %}" class="btn-custom">Finish Assessment</a>
-                                    {% endif %}
-                                </div>
+
+                            <!-- Option 2 -->
+                            <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 2 %}correct-opt{% elif feedback.selected_option == 2 %}wrong-opt{% endif %}{% endif %}">
+                                <input type="radio" id="opt2" name="answer" value="2" {% if feedback.show %}disabled{% endif %} {% if feedback.selected_option == 2 %}checked{% endif %}>
+                                <label for="opt2">{{ question.option2 }}</label>
+                            </div>
+
+                            <!-- Option 3 -->
+                            <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 3 %}correct-opt{% elif feedback.selected_option == 3 %}wrong-opt{% endif %}{% endif %}">
+                                <input type="radio" id="opt3" name="answer" value="3" {% if feedback.show %}disabled{% endif %} {% if feedback.selected_option == 3 %}checked{% endif %}>
+                                <label for="opt3">{{ question.option3 }}</label>
+                            </div>
+
+                            <!-- Option 4 -->
+                            <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 4 %}correct-opt{% elif feedback.selected_option == 4 %}wrong-opt{% endif %}{% endif %}">
+                                <input type="radio" id="opt4" name="answer" value="4" {% if feedback.show %}disabled{% endif %} {% if feedback.selected_option == 4 %}checked{% endif %}>
+                                <label for="opt4">{{ question.option4 }}</label>
+                            </div>
+                        </div>
+
+                        {% if feedback.show %}
+                        <div class="feedback-section">
+                            {% if feedback.is_correct %}
+                            <div class="alert alert-success">
+                                <strong>Correct!</strong> {{ feedback.reason }}
+                            </div>
                             {% else %}
-                                <button type="submit" class="btn-custom" style="width: 100%;">Submit Answer</button>
+                            <div class="alert alert-danger">
+                                <strong>Incorrect!</strong> The correct answer is: <strong style="color: #155724; background-color: #d4edda; padding: 2px 5px; border-radius: 4px;">{{ feedback.correct_text }}</strong>
+                                {% if feedback.reason %}<br>Reason: {{ feedback.reason }}{% endif %}
+                            </div>
                             {% endif %}
-                        </form>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end;">
+                            {% if question_number < total_questions %} <a
+                                href="{% url 'question' question_number=question_number|add:1 %}{{ popup_param }}"
+                                class="btn-custom">Next Question &rarr;</a>
+                                {% else %}
+                                {% if is_popup %}
+                                <a href="{% url 'question' question_number=question_number|add:1 %}{{ popup_param }}"
+                                    class="btn-custom">Finish Assessment</a>
+                                {% else %}
+                                <a href="{% url 'home' %}" class="btn-custom">Finish Assessment</a>
+                                {% endif %}
+                                {% endif %}
+                        </div>
+                        {% else %}
+                        <button type="submit" class="btn-custom" style="width: 100%;">Submit Answer</button>
+                        {% endif %}
+                    </form>
                     {% endif %}
                 </div>
-                
+
             </div>
 
         </div>
     </div>
 
     <!-- Footer from Sciencebook -->
+    {% if not is_popup %}
     <div class="flex-1"></div>
     <div class="w-full">
         <div class="responsive-contant w-full flex sm-flex llg-hide middle center p-2">
             <span> <img src="{% static './Assets//powered by.png' %} " /> </span>
         </div>
     </div>
+    {% endif %}
+
+    <script>
+        $(document).ready(function() {
+            // Function to handle content replacement
+            function updateContent(html, url) {
+                var newDoc = new DOMParser().parseFromString(html, "text/html");
+                var newContent = newDoc.querySelector('.assessment-container').innerHTML;
+                $('.assessment-container').html(newContent);
+                if (url) {
+                    window.history.pushState(null, "", url);
+                }
+            }
+
+            // Handle Form Submission (Answer Sorting)
+            $(document).on('submit', 'form', function(e) {
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: window.location.href, 
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function(response) {
+                        updateContent(response);
+                    },
+                    error: function() {
+                        alert("An error occurred. Please try again.");
+                    }
+                });
+            });
+
+            // Handle Next/Finish Button Clicks
+            $(document).on('click', 'a.btn-custom', function(e) {
+                var url = $(this).attr('href');
+                // Only intercept internal navigation links, allow Home/External if necessary
+                // But for assessment flow, these are all internal
+                e.preventDefault();
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {
+                        updateContent(response, url);
+                    },
+                    error: function() {
+                        alert("An error occurred loading the next question.");
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
+
 </html>

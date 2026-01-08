@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
@@ -61,7 +63,10 @@ def sciencebook(request):
         )
         topic.new_topic = new_topic
         if new_topic:
+             topic.has_questions = Question.objects.filter(topic=new_topic).exists()
              topic.study_material = StudyMaterial.objects.filter(topic=new_topic).first()
+        else:
+             topic.has_questions = False
 
     for i, topic in enumerate(topic_list, 1):
         topic.serial_number = i
@@ -99,7 +104,10 @@ def mathamatics(request):
         
         topic.new_topic = new_topic
         if new_topic:
+             topic.has_questions = Question.objects.filter(topic=new_topic).exists()
              topic.study_material = StudyMaterial.objects.filter(topic=new_topic).first()
+        else:
+             topic.has_questions = False
 
     for i, topic in enumerate(topic_list, 1):
         topic.serial_number = i
@@ -108,12 +116,18 @@ def mathamatics(request):
 def home_view(request):
     return render(request, 'assessment/index.html')
 
+@xframe_options_exempt
 def assessment_view(request, topic_id=None):
     if topic_id:
         request.session['current_topic_id'] = topic_id
-    # If standard assessment view without ID, maybe redirect or show generic
-    return render(request, 'assessment/assessment.html')
+    
+    is_popup = request.GET.get('popup') == 'true'
+    return render(request, 'assessment/assessment.html', {
+        'is_popup': is_popup,
+        'popup_param': '?popup=true' if is_popup else ''
+    })
 
+@xframe_options_exempt
 def start_assessment(request, topic_id):
     questions = list(Question.objects.filter(topic_id=topic_id))
     if not questions:
@@ -127,14 +141,25 @@ def start_assessment(request, topic_id):
         request.session['questions'] = [q.id for q in questions[:5]]
         
     request.session['answered'] = []
-    return redirect('question', question_number=1)
+    
+    response_url = reverse('question', kwargs={'question_number': 1})
+    if request.GET.get('popup') == 'true':
+        response_url += '?popup=true'
+    return redirect(response_url)
 
+
+@xframe_options_exempt
 def question_view(request, question_number):
     question_ids = request.session.get('questions', [])
     answered = request.session.get('answered', [])
     if not question_ids or question_number > len(question_ids):
         # Result or done
-        return redirect('home') # Or result page?
+        is_popup = request.GET.get('popup') == 'true'
+        return render(request, 'assessment/question.html', {
+            'finished': True,
+            'is_popup': is_popup,
+            'popup_param': '?popup=true' if is_popup else ''
+        })
         
     question = Question.objects.get(id=question_ids[question_number - 1])
     feedback = {}
@@ -157,14 +182,19 @@ def question_view(request, question_number):
                 answered.append(question_number)
                 request.session['answered'] = answered
             
+    is_popup = request.GET.get('popup') == 'true'
+
     return render(request, 'assessment/question.html', {
         'question': question,
         'question_number': question_number,
         'total_questions': len(question_ids),
         'finished': len(answered) >= len(question_ids),
-        'feedback': feedback
+        'feedback': feedback,
+        'is_popup': is_popup,
+        'popup_param': '?popup=true' if is_popup else ''
     })
 
+@xframe_options_exempt
 def reload_view(request):
     topic_id = request.session.get('current_topic_id')
     if topic_id:
@@ -180,7 +210,11 @@ def reload_view(request):
         
     request.session['answered'] = []
     # Clear topic_id so standard reload works? Or keep it? keeping it is fine.
-    return redirect('question', question_number=1)
+    
+    response_url = reverse('question', kwargs={'question_number': 1})
+    if request.GET.get('popup') == 'true':
+        response_url += '?popup=true'
+    return redirect(response_url)
 
 def rss_news_view(request):
     feed_urls = [
