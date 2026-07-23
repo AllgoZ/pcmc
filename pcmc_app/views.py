@@ -175,6 +175,7 @@ def question_view(request, question_number):
                 'selected_option': selected_option,
                 'correct_option': question.correct_option,
                 'correct_text': getattr(question, f'option{question.correct_option}'),
+                'correct_image': getattr(question, f'option{question.correct_option}_image'),
                 'reason': question.reason
             }
             

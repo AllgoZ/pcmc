@@ -159,21 +159,40 @@
                 padding: 20px;
             }
         }
+
+        /* Image Styles */
+        .assessment-image {
+            max-width: 100%;
+            max-height: 300px;
+            width: auto;
+            display: block;
+            margin: 0 auto 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .assessment-option-image {
+            max-width: 150px;
+            max-height: 150px;
+            width: auto;
+            vertical-align: middle;
+            border-radius: 4px;
+        }
     </style>
 </head>
 
 <body style="background-color: #F77F00;height:100vh;display: flex;flex-direction: column;">
 
     <!-- Outer Container from Sciencebook -->
-    <div class='body-Container h-full '>
-        <div class='AppSubject flex col  '>
+    <div class="body-Container h-full ">
+        <div class="AppSubject flex col  ">
 
             <!-- Header -->
             {% if not is_popup %}
-            <div class='subject_component flex px-4 py-2 '>
-                <div class=''>
+            <div class="subject_component flex px-4 py-2 ">
+                <div class="">
                     <a class="responsive-img flex middle" href=" {% url 'home' %} ">
-                        <img src=" {% static './Assets//Tepros.png' %} " alt='Tepros'>
+                        <img src=" {% static './Assets//Tepros.png' %} " alt="Tepros">
                     </a>
                 </div>
                 <div class="flex-1"></div>
@@ -208,7 +227,7 @@
                         <p style="font-size: 18px; color: #555;">Thank you for completing the assessment!</p>
                         <br>
                         {% if is_popup %}
-                        <button onclick="window.parent.$('#assessmentModal').modal('hide')" class="btn-custom">Close
+                        <button onclick="window.parent..modal('hide')" class="btn-custom">Close
                             Assessment</button>
                         {% else %}
                         <a href="{% url 'home' %}" class="btn-custom">Return Home</a>
@@ -216,35 +235,66 @@
                     </div>
                     {% else %}
                     <h2 class="q-count">Question {{ question_number }} of {{ total_questions }}</h2>
+                    {% if question.question_image %}
+                    <img src="{{ question.question_image.url }}" alt="Question Image" class="assessment-image">
+                    {% else %}
                     <p class="question-text">{{ question.question_text }}</p>
+                    {% endif %}
 
                     <form method="POST">
                         {% csrf_token %}
 
                         <div class="option-group">
                             <!-- Option 1 -->
-                            <!-- FORCE SINGLE LINES -->
                             <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 1 %}correct-opt{% elif feedback.selected_option == 1 %}wrong-opt{% endif %}{% endif %}">
                                 <input type="radio" id="opt1" name="answer" value="1" {% if feedback.show %}disabled{% endif %} {% if feedback.selected_option == 1 %}checked{% endif %}>
-                                <label for="opt1">{{ question.option1 }}</label>
+                                <label for="opt1">
+                                    {% if question.option1_image %}
+                                    <img src="{{ question.option1_image.url }}" alt="Option 1"
+                                        class="assessment-option-image">
+                                    {% else %}
+                                    {{ question.option1 }}
+                                    {% endif %}
+                                </label>
                             </div>
 
                             <!-- Option 2 -->
                             <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 2 %}correct-opt{% elif feedback.selected_option == 2 %}wrong-opt{% endif %}{% endif %}">
                                 <input type="radio" id="opt2" name="answer" value="2" {% if feedback.show %}disabled{% endif %} {% if feedback.selected_option == 2 %}checked{% endif %}>
-                                <label for="opt2">{{ question.option2 }}</label>
+                                <label for="opt2">
+                                    {% if question.option2_image %}
+                                    <img src="{{ question.option2_image.url }}" alt="Option 2"
+                                        class="assessment-option-image">
+                                    {% else %}
+                                    {{ question.option2 }}
+                                    {% endif %}
+                                </label>
                             </div>
 
                             <!-- Option 3 -->
                             <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 3 %}correct-opt{% elif feedback.selected_option == 3 %}wrong-opt{% endif %}{% endif %}">
                                 <input type="radio" id="opt3" name="answer" value="3" {% if feedback.show %}disabled{% endif %} {% if feedback.selected_option == 3 %}checked{% endif %}>
-                                <label for="opt3">{{ question.option3 }}</label>
+                                <label for="opt3">
+                                    {% if question.option3_image %}
+                                    <img src="{{ question.option3_image.url }}" alt="Option 3"
+                                        class="assessment-option-image">
+                                    {% else %}
+                                    {{ question.option3 }}
+                                    {% endif %}
+                                </label>
                             </div>
 
                             <!-- Option 4 -->
                             <div class="option-row {% if feedback.show %}{% if feedback.correct_option == 4 %}correct-opt{% elif feedback.selected_option == 4 %}wrong-opt{% endif %}{% endif %}">
                                 <input type="radio" id="opt4" name="answer" value="4" {% if feedback.show %}disabled{% endif %} {% if feedback.selected_option == 4 %}checked{% endif %}>
-                                <label for="opt4">{{ question.option4 }}</label>
+                                <label for="opt4">
+                                    {% if question.option4_image %}
+                                    <img src="{{ question.option4_image.url }}" alt="Option 4"
+                                        class="assessment-option-image">
+                                    {% else %}
+                                    {{ question.option4 }}
+                                    {% endif %}
+                                </label>
                             </div>
                         </div>
 
@@ -256,7 +306,12 @@
                             </div>
                             {% else %}
                             <div class="alert alert-danger">
-                                <strong>Incorrect!</strong> The correct answer is: <strong style="color: #155724; background-color: #d4edda; padding: 2px 5px; border-radius: 4px;">{{ feedback.correct_text }}</strong>
+                                <strong>Incorrect!</strong> The correct answer is: 
+                                {% if feedback.correct_image %}
+                                    <img src="{{ feedback.correct_image.url }}" alt="Correct Answer" class="assessment-option-image" style="display:inline-block; margin-left:10px;">
+                                {% else %}
+                                    <strong style="color: #155724; background-color: #d4edda; padding: 2px 5px; border-radius: 4px;">{{ feedback.correct_text }}</strong>
+                                {% endif %}
                                 {% if feedback.reason %}<br>Reason: {{ feedback.reason }}{% endif %}
                             </div>
                             {% endif %}
@@ -298,47 +353,47 @@
     {% endif %}
 
     <script>
-        $(document).ready(function() {
+        .ready(function () {
             // Function to handle content replacement
             function updateContent(html, url) {
                 var newDoc = new DOMParser().parseFromString(html, "text/html");
                 var newContent = newDoc.querySelector('.assessment-container').innerHTML;
-                $('.assessment-container').html(newContent);
+                .html(newContent);
                 if (url) {
                     window.history.pushState(null, "", url);
                 }
             }
 
             // Handle Form Submission (Answer Sorting)
-            $(document).on('submit', 'form', function(e) {
+            .on('submit', 'form', function (e) {
                 e.preventDefault();
-                var form = $(this);
+                var form = ;
                 $.ajax({
-                    url: window.location.href, 
+                    url: window.location.href,
                     type: 'POST',
                     data: form.serialize(),
-                    success: function(response) {
+                    success: function (response) {
                         updateContent(response);
                     },
-                    error: function() {
+                    error: function () {
                         alert("An error occurred. Please try again.");
                     }
                 });
             });
 
             // Handle Next/Finish Button Clicks
-            $(document).on('click', 'a.btn-custom', function(e) {
-                var url = $(this).attr('href');
+            .on('click', 'a.btn-custom', function (e) {
+                var url = .attr('href');
                 // Only intercept internal navigation links, allow Home/External if necessary
                 // But for assessment flow, these are all internal
                 e.preventDefault();
                 $.ajax({
                     url: url,
                     type: 'GET',
-                    success: function(response) {
+                    success: function (response) {
                         updateContent(response, url);
                     },
-                    error: function() {
+                    error: function () {
                         alert("An error occurred loading the next question.");
                     }
                 });

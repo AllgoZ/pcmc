@@ -65,6 +65,13 @@ class Question(models.Model):
     option4 = models.CharField(max_length=255)
     correct_option = models.IntegerField()  # Store the correct option number (1-4)
     reason = models.TextField(blank=True, null=True)
+    
+    # Image fields for question and options
+    question_image = models.ImageField(upload_to='assessment_images/', null=True, blank=True)
+    option1_image = models.ImageField(upload_to='assessment_images/', null=True, blank=True)
+    option2_image = models.ImageField(upload_to='assessment_images/', null=True, blank=True)
+    option3_image = models.ImageField(upload_to='assessment_images/', null=True, blank=True)
+    option4_image = models.ImageField(upload_to='assessment_images/', null=True, blank=True)
 
     def __str__(self):
         return self.question_text
