@@ -27,7 +27,7 @@ DEBUG = True
 #'https://globalophthalmicinstitute.com/','https://globalophthalmicinstitute.org/'
 ALLOWED_HOSTS = ['*','https://pcmc.tepros.in/']
 
-CSRF_TRUSTED_ORIGINS = ['https://pcmc.tepros.in/']
+CSRF_TRUSTED_ORIGINS = ['https://pcmc.tepros.in']
 #CSRF_COOKIE_SECURE = True  # If using HTTPS
 
 # Application definition
